@@ -1,0 +1,133 @@
+<style>
+  .card-image {
+  height: 150px;
+  width: 100%;
+  border-radius: 10px;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-bottom: 10px;
+}
+::-webkit-scrollbar {
+  border-radius: 50px;
+  width: 30px;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #d6d6d6;
+}
+
+::-webkit-scrollbar-thumb {
+  border-radius: 2px;
+  background: #c2c2c2;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #d63c3c;
+}
+
+body {
+  background-color: #ededed;
+}
+
+#pesananlist * {
+  font-size: 14px;
+}
+.name {
+  font-size: 17px !important;
+  font-size: 1vw !important;
+}
+
+.namamenu-list {
+  font-size: 19px !important;
+  font-size: 1vw !important;
+}
+
+#card-produk {
+  cursor: pointer;
+  overflow: hidden;
+}
+#card-produk::after {
+  font-family: "Font Awesome 6 Free";
+  font-weight: 900;
+  content: "\f217";
+
+  width: 100%;
+  height: 100%;
+  display: flex;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(to top, #ffa600, #eb1111);
+  color: white;
+  font-size: 19px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+}
+
+#card-produk:hover::after {
+  opacity: 0.89;
+}
+
+#cart .cart-products-list{
+  max-height: 270px;
+  height: 250px;
+  overflow-y: scroll;
+  overflow-x: hidden;
+}
+
+.kanan {
+  width: 30%;
+  position: fixed !important;
+  top: 55px;
+  right: 0px;
+  background-color: rgba(245, 245, 245, 0);
+  min-height: 100vh;
+}
+
+.kiri {
+  width: 68%;
+  top: 40px;
+}
+
+
+</style>
+<div class="row">
+ 
+  <div class="kiri mt-3">
+    <br>
+    <br>
+    <div class="py-1">
+      <div class="row" id="menu-makanan"></div>
+    </div>
+  </div>
+
+  <div class="kanan">
+    <div class="card shadow rounded-0 mt-3">
+      <div class="row mx-2 my-2">
+        <div class="col-4">
+          <div class="mb-3">
+            <label for="nokamar" class="form-label">No Kamar</label>
+            <input type="text" name="nokamar" id="nokamar" class="form-control" placeholder="Ex : A001" />
+          </div>
+        </div>
+        <div class="col-8">
+          <div class="mb-3">
+            <label for="anama" class="form-label">Atas Nama</label>
+            <input type="text" name="anama" id="anama" class="form-control" placeholder="Ex : Tuan Andri" />
+          </div>
+        </div>
+      </div>
+      <div id="cart"></div>
+    </div>
+  </div>
+</div>
+
+
+<script src="assets/lib/data-menu.js"></script>

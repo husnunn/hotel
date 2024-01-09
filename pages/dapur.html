@@ -1,0 +1,64 @@
+ <script>
+      function load_dapur() {
+        var gg = [];
+        $.ajax({
+          type: "GET",
+          url: "https://tugasapi.informatikaunwaha.com/tajul/apimenu/api_get.php",
+          data: {
+            ambil: "dapur",
+          },
+          dataType: "json",
+          success: function (response) {
+            console.log(response);
+            dataInvoice = response;
+            gg = response;
+            var uniqueCodes = [];
+
+            // Memetakan pesanan ke dalam kode unik
+            $.each(dataInvoice, function (index, order) {
+              if ($.inArray(order.order_kode, uniqueCodes) === -1) {
+                uniqueCodes.push(order.order_kode);
+              }
+            });
+
+            var htmlk = ``;
+            // Membuat div untuk setiap pesanan dengan kode unik
+            $.each(uniqueCodes, function (index, uniqueCode) {
+              htmlk += `
+              <div class='col-3  mb-4'>
+              <div class='card h-100'>
+                 <div class='card-header'>
+                Kode Order : ${uniqueCode}
+                </div>
+              <div class='card-body p-1'>
+
+              <ul class='list-group list-group-flush rounded-0 border-0' id='unique_${uniqueCode}'>`;
+
+              $.each(dataInvoice, function (index, order) {
+                if (order.order_kode === uniqueCode) {
+                  htmlk += `<li class='list-group-item' >
+                    <div class='row'>
+                        <div class='col-10'>${order.order_menu} </div>
+                        <div class='col-2'><div class='rounded-1 text-danger fw-bold d-flex justify-content-center align-items-center' style='width:30px; height:30px'>${order.order_qty}</div></div>
+                      
+                        </div>                    
+                    </li>`;
+                }
+              });
+              htmlk += `</ul>
+                </div>
+                <div class='card-footer'>
+                    <button class=' btn btn-success rounded-1' data-idorder='${uniqueCode}'>Pesanan Ready</button>
+
+                    </div>
+                </div>
+
+                </div>`;
+            });
+            $("#list-pesanan").append(htmlk);
+          },
+        });
+      }
+      load_dapur();
+    </script>
+
