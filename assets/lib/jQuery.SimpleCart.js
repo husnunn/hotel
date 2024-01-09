@@ -215,6 +215,8 @@ function batalin() {
     $("input[data-name]").change();
   });
 }
+
+
 function generateUnit() {
   var currentDate = new Date();
 
