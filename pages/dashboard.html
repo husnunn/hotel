@@ -1,0 +1,67 @@
+<br />
+
+<div class="row mt-5">
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body p-1">
+        <div id="chart"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-6">
+    <div class="card">
+      <div class="card-body">
+        <table class="table">
+          <thead>
+            <th>#</th>
+            <th>Tanggal</th>
+            <th>Nama Tamu</th>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>2024-01-01</td>
+              <td>Harianto</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>2024-01-01</td>
+              <td>Harianto</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>2024-01-01</td>
+              <td>Harianto</td>
+            </tr>
+            <tr>
+              <td>1</td>
+              <td>2024-01-01</td>
+              <td>Harianto</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  var options = {
+    chart: {
+      type: "area",
+    },
+    series: [
+      {
+        name: "sales",
+        data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
+      },
+    ],
+    xaxis: {
+      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
+    },
+  };
+
+  var chart = new ApexCharts(document.querySelector("#chart"), options);
+
+  chart.render();
+</script>
