@@ -223,7 +223,10 @@
             dataType: "JSON",
             success: function (response) {
               localStorage.removeItem("form");
-              // window.location.reload();
+              toastMixin.fire({
+    animation: true,
+    title: 'Data Berhasil Di Tambah'
+  }).then((result) => window.location.reload() )
             },
           });
         });
@@ -413,7 +416,10 @@ el=`<span class='badge bg-warning'>Pending</span>`
           contentType: "application/x-www-form-urlencoded",
           data: { id: data, kolom: "id" },
           success: function (response) {
-            window.location.reload();
+            toastMixin.fire({
+    animation: true,
+    title: 'Data Berhasil Di Hapus'
+  }).then((result) => window.location.reload() )
           },
         });
       });

@@ -87,7 +87,7 @@
               
             </a>
             <span class="divider">Dapur</span>
-            
+
             <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Dashboard" data-halaman="kasir.html" class="nav_link">
               <i class="bx bx-coffee nav_icon"></i>
               <span class="nav_name">Order Foods</span>
@@ -141,5 +141,22 @@
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <!-- Select2 -->
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+
+    <script>
+      var toastMixin = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'General Title',
+    animation: false,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+    </script>
   </body>
 </html>

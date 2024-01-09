@@ -84,9 +84,10 @@
       data: dataform,
       dataType: "JSON",
       success: function (response) {
-        alert(response);
-        reset();
-        load_jabatan();
+        toastMixin.fire({
+    animation: true,
+    title: 'Gaji Berhasil Ditambah'
+  }).then((result) => window.location.reload() )
       },
     });
   });

@@ -168,7 +168,7 @@
       url: "https://tugasapi.informatikaunwaha.com/husnun/api/api.php/cari/id/eq/" + id,
       dataType: "json",
       success: function (response) {
-        console.log(response.data[0].noKamar);
+        
         $("#btnCo").append(` <button type="button" class="btn btn-primary" id="hapusTamu" onclick="co(${id},${response.data[0].noKamar})" >Checkout</button>`);
       },
     });
@@ -180,15 +180,20 @@
       data: { id: id, kolom: "id" },
       dataType: "json",
       success: function (response) {
-        console.log(response);
+        
         $.ajax({
           type: "PUT",
           url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/ketersediaan",
           data: { nomor_kamar: noKamar, ketersediaan: "1" },
           dataType: "json",
           success: function (response) {
-            console.log(noKamar);
-          },
+            
+          },error: function(error){
+            toastMixin.fire({
+    animation: true,
+    title: 'Data Berhasil Di Checkout'
+  }).then((result) => window.location.reload() )
+          }
         });
       },
     });
@@ -220,63 +225,15 @@
       },
       error: function (error) {
         console.log("Error: ", error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Terjadi Kesalahan!",
-        });
+        toastMixin.fire({
+    title: 'Gagal Di Tampilkan',
+    icon: 'error'
+  }).then((result) => window.location.reload() )
       },
     });
   });
 
-  // HAPUSSS TAMU
-  //   $("#modalco").on("click","#hapusTamu",function(){
-  //     id = $(this).data('id');
-  //     console.log(id);
-  //     $.ajax({
-  //         type: "DELETE",
-  //         url: "https://informatikaunwaha.com/tugasapi.informatikaunwaha.com/husnun/api/api.php",
-  //         data: { id: id,kolom:'id' },
-  //         dataType: "JSON",
-  //         success: function (response) {
-  //           $.ajax({
-  //                   type: "PUT",
-  //                   url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/ketersediaan",
-  //                   data: {nomor_kamar:no_kamar,ketersediaan:'1'},
-  //                   dataType: "json",
-  //                   success: function (response) {
-  //                     console.log(response);
-  //                   }
-  //                 });
-  //           Swal.fire({
-  //   title: "Apa Kamu Yakin?",
-  //   text: "Ingin Menghapus Tamu?",
-  //   icon: "warning",
-  //   showCancelButton: true,
-  //   confirmButtonColor: "#3085d6",
-  //   cancelButtonColor: "#d33",
-  //   confirmButtonText: "Iya Hapus!"
-  // }).then((result) => {
-  //   if (result.isConfirmed) {
-  //     Swal.fire({
-  //       title: "Deleted!",
-  //       text: "Tamu Berhasil Di Hapus",
-  //       icon: "success"
-  //     });
-  //   }
-  // });
-  //           ambildatatamu();
-  //         },
-  //         error: function (error) {
-  //           Swal.fire({
-  //   icon: "error",
-  //   title: "Oops...",
-  //   text: "Terjadi Kesalahan!",
-  // });
-  //         }
-  //       });
-  //   })
-
+  
   // UPDATE TAMU
   $("#updateTamu").on("click", function (event) {
     event.preventDefault();
@@ -289,20 +246,17 @@
       data: data,
       success: function (response) {
         console.log(response);
-        swal({
-          title: "Berhasil",
-          text: "Data Berhasil Di Edit ",
-          icon: "success",
-        });
-        ambildatatamu();
+        toastMixin.fire({
+    animation: true,
+    title: 'Tamu Berhasil Diedit'
+  }).then((result) => window.location.reload() )
       },
       error: function (error) {
         console.log("Error: ", error);
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: "Terjadi Kesalahan!",
-        });
+        toastMixin.fire({
+    title: 'Gagal Diedit',
+    icon: 'error'
+  }).then((result) => window.location.reload() )
       },
     });
   });

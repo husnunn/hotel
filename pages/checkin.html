@@ -21,9 +21,9 @@
             <div class="form-group col-6"><label>NIK Tamu</label><input type="text" class="form-control" id="nikTamu" name="nikTamu" style="font-size: 20px" /></div>
             <div class="form-group col-6"><label>Email Tamu</label><input type="email" class="form-control" id="email" name="email" style="font-size: 20px" /></div>
             <div class="form-group col-6"><label>Tanggal Check In</label><input type="date" class="form-control" id="tglCi" name="tglCi" style="font-size: 20px" /></div>
-            <div class="form-group col-6"><label>Jam Check In</label><input type="text" class="form-control" id="jamCi" name="jamCi" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>Jam Check In</label><input type="time" class="form-control" id="jamCi" name="jamCi" style="font-size: 20px" /></div>
             <div class="form-group col-6"><label>Tanggal Check Out</label><input type="date" class="form-control" id="tglCo" name="tglCo" style="font-size: 20px" /></div>
-            <div class="form-group col-6"><label>Jam Check Out</label><input type="text" class="form-control" id="jamCo" name="jamCo" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>Jam Check Out</label><input type="time" class="form-control" id="jamCo" name="jamCo" style="font-size: 20px" /></div>
             <div class="form-group col-6"><label>Jumlah Hari</label><input type="text" class="form-control" id="jmlHari" name="jmlHari" style="font-size: 20px" /></div>
             <input type="hidden" id="no_kamar" name="noKamar" />
 
@@ -123,13 +123,7 @@
           dataType: "JSON", // Ganti dengan URL tempat Anda menyimpan fungsi PHP untuk menangani data
           data: valueOfElement,
           success: function (response) {
-            Swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Data Berhasil Di Tambahkan!",
-              color: "#716add",
-              showConfirmButton: true,
-            });
+            
 
             localStorage.removeItem("form");
             $.ajax({
@@ -142,17 +136,18 @@
               },
               dataType: "json",
               success: function (response) {
-                console.log(response);
+                toastMixin.fire({
+    animation: true,
+    title: 'Data Berhasil Di Tambah'
+  }).then((result) => window.location.reload() )
               },
             });
           },
           error: function (error) {
-            console.log("Error: ", error.responseText);
-            Swal.fire({
-              icon: "error",
-              title: "Oops...",
-              text: "Terjadi Kesalahan!",
-            });
+            toastMixin.fire({
+    title: 'Gagal Di Tambah',
+    icon: 'error'
+  }).then((result) => window.location.reload() )
           },
         });
       });
@@ -173,11 +168,4 @@
     $("#pembayaran").val("");
   }
 
-  function kamarfull() {
-    Swal.fire({
-      icon: "error",
-      title: "Oops...",
-      text: "Kamar Sudah Full!",
-    });
-  }
 </script>

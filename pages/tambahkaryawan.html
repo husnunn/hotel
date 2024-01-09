@@ -75,12 +75,20 @@
 
     $.ajax({
       type: "POST",
-      url: "https://tugasapi.informatikaunwaha.com/jaza/api/post_api.php",
+      url: "https://tugasapi.informatikaunwaha.com/jaza/api/post_api.phpp",
       data: dataform,
       dataType: "JSON",
       success: function (response) {
-        alert(response);
-      },
+        toastMixin.fire({
+    animation: true,
+    title: 'Karyawan Berhasil Ditambah'
+  }).then((result) => window.location.reload() )
+      },error: function(error){
+        toastMixin.fire({
+    title: 'Gagal Ditambah',
+    icon: 'error'
+  }).then((result) => window.location.reload() )
+      }
     });
   });
 </script>
