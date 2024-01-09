@@ -46,8 +46,10 @@
 </div>
 
 <script>
-  var options = {
-    chart: {
+    $(document).ready(function () {
+        
+        var options = {
+            chart: {
       type: "area",
     },
     series: [
@@ -64,4 +66,5 @@
   var chart = new ApexCharts(document.querySelector("#chart"), options);
 
   chart.render();
+});
 </script>
