@@ -1,0 +1,152 @@
+<!-- Container Main start -->
+<br><br>
+<div class="height-100 bg-light mt-5">
+  <div class="container-fluid mt-5">
+    <div class="" id="main-content"></div>
+    <div class="row" id="kamar"></div>
+  </div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Isi Administasi</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+          <form id="form-input">
+            <div class="form-group">
+              <label for="name">Name <span>*</span></label>
+              <input type="text" class="form-control" id="name" placeholder="Your Name" name="name" />
+            </div>
+            <div class="form-group">
+              <label for="email">Email <span>*</span></label>
+              <input type="text" class="form-control" id="email" placeholder="Your Email" name="email" />
+            </div>
+            <div class="form-group">
+              <label for="check-in">Check In <span>*</span></label>
+              <input type="date" class="form-control" id="check-in" name="checkin" />
+            </div>
+            <div class="form-group">
+              <label for="check-out">Check Out <span>*</span></label>
+              <input type="date" class="form-control" id="check-out" name="checkout" />
+            </div>
+            <input type="hidden" id="no_kamar" name="no_kamar" />
+            <button type="submit" id="submit" hidden="1"></button>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary" onclick="$('#submit').click()">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $.ajax({
+    type: "GET",
+    url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/kamar",
+    dataType: "json",
+    success: function (response) {
+      console.log(response.data);
+      switch (response.data) {
+        case "data kosong":
+          $("#kamar").append(` <div class="col-md-4">
+    <div class="card">
+      
+      <div class="card-body">
+        
+      <b>Kamar kosong</b>
+
+      </div>
+    </div>
+  </div>
+</div>`);
+          break;
+
+        default:
+          break;
+      }
+      $.each(response.data, function (indexInArray, valueOfElement) {
+        console.log(valueOfElement);
+        $("#kamar").append(`   <div class="col-md-4">
+          <div class="card">
+            <img
+              src="assets/img_kamar/${valueOfElement.foto}"
+              class="card-img-top"
+              alt="Gambar Ruangan"
+            />
+            <div class="card-body">
+              <h5 class="card-title">Ruangan: ${valueOfElement.nomor_kamar}</h5>
+              <p class="card-text">Tipe: ${valueOfElement.tipe_kamar}</p>
+              <p class="card-text">Harga: ${valueOfElement.harga}</p>
+              <p class="card-text">Ketersedian: Tersedia</p>
+              <!-- Button trigger modal -->
+              <button
+                type="button"
+                class="btn btn-success"
+                data-bs-toggle="modal"
+                data-bs-target="#exampleModal"
+                data-no_kamar='${valueOfElement.nomor_kamar}'
+                id='pesan'
+              >
+                Pesan
+              </button>
+
+            </div>
+          </div>
+        </div>
+      </div>`);
+      });
+    },
+  });
+  $("#kamar").on("click", "#pesan", function () {
+    console.log($(this).data("no_kamar"));
+    var no_kamar = $(this).data("no_kamar");
+    $("#no_kamar").val(no_kamar);
+  });
+  $("#form-input").submit(function (e) {
+    e.preventDefault();
+
+    var form = $("#form-input").serializeArray();
+
+    var no_kamar = $("#no_kamar").val();
+    var data = JSON.parse(localStorage.getItem("form")) || [];
+    data.push(form);
+    localStorage.setItem("form", JSON.stringify(data));
+    if (navigator.onLine) {
+      $.each(data, function (indexInArray, valueOfElement) {
+        $.ajax({
+          type: "POST",
+          url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/input",
+          data: valueOfElement,
+          dataType: "JSON",
+          success: function (response) {
+            $.ajax({
+              type: "PUT",
+              url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/ketersediaan",
+              data: { nomor_kamar: no_kamar, ketersediaan: "0" },
+              dataType: "json",
+              success: function (response) {
+                console.log(response);
+              },
+            });
+            localStorage.removeItem("form");
+            console.log(response);
+            swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Your work has been saved",
+              showConfirmButton: true,
+            });
+          },
+        });
+      });
+    }
+  });
+</script>

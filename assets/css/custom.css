@@ -1,0 +1,116 @@
+a {
+  text-decoration: none !important;
+}
+
+/* COKRO  */
+
+/* Gaya tambahan untuk formulir di dalam modal */
+#tambahFormModal {
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+#tambahFormModal label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+#tambahFormModal input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#tambahFormModal input[type="date"] {
+  width: calc(100% - 16px);
+}
+
+#tambahFormModal button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#tambahFormModal button:hover {
+  background-color: #45a049;
+}
+
+#modaledit {
+  max-width: 400px;
+  margin: 0 auto;
+  margin-left: 500px !important;
+}
+
+#modaledit label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333;
+}
+
+#modaledit input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+#modaledit input[type="date"] {
+  width: calc(100% - 16px);
+}
+
+#modaledit button {
+  background-color: #4caf50;
+  color: #fff;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+#modaledit button:hover {
+  background-color: #45a049;
+}
+
+/* END VOKROO  */
+
+.glass {
+  background: rgba(255, 255, 255, 0.25);
+  backdrop-filter: blur(7.5px);
+  -webkit-backdrop-filter: blur(7.5px);
+  border-radius: 10px;
+}
+
+.l-navbar.show .divider {
+  opacity: 1;
+  display: inline-block;
+}
+.divider {
+  color: rgba(255, 255, 255, 0.54);
+  display: inline-block;
+  width: 100%;
+  text-align: left;
+  background: rgba(255, 0, 0, 0);
+  position: relative;
+  font-size: 14px;
+  margin-left: 24px;
+  opacity: 0;
+  display: none;
+}
+
+.nav_link {
+  font-size: 14px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+.nav_link.active {
+  background: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.19));
+}

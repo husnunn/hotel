@@ -1,0 +1,421 @@
+
+      <br><br>
+      <!-- Content Wrapper. Contains page content -->
+      <div class="content-wrapper mt-5">
+        <!-- Main content -->
+        <section class="content">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12">
+                <div class="card">
+                  <div class="card-header">
+                    <h3 class="card-title">
+                      Tabel Pelanggan
+                      <!-- Modal TAMBAH trigger button -->
+                      <button type="button" class="btn btn-primary btn-sm float-end" data-bs-toggle="modal" data-bs-target="#modaltambah">Tambah Laundry</button>
+                    </h3>
+                  </div>
+                  <div class="card-body">
+                    <table id="tabelpelanggan" class="table table-bordered table-hover">
+                      <thead>
+                        <tr>
+                          <th>No</th>
+                          <th>Nomor Kamar</th>
+                          <th>Keterangan</th>
+                          <th>Tanggal</th>
+                          <th>Berat Pakaian (kg)</th>
+                          <th>Harga</th>
+                          <th>Status Bayar</th>
+                          <th>Status</th>
+                          <th>Edit</th>
+                          <th>Hapus</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <!-- Tambahkan baris lain dengan status yang sesuai -->
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <!-- MODAL EDIT -->
+      <div class="modal fade" id="modalPelanggan" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg modal-dialog-scrollable">
+          
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Edit</h3>
+            </div>
+            <div class="modal-body">
+              <form id="orderForm">
+                <input type="hidden" id="id" name="id" />
+                <div class="mb-3 has-validation">
+                  <label class="form-label" for="nomor_kamar">Nomor Kamar:</label>
+                  <input type="text" id="nomor_kamar" class="form-control" name="nomor_kamar" required />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="keterangan">Keterangan:</label>
+                  <select id="keterangan" class="form-control" name="keterangan" required>
+                    <option value="Cuci Kering">Cuci Kering</option>
+                    <option value="Cuci Setrika">Cuci Setrika</option>
+                    <option value="Setrika">Setrika</option></select
+                  >
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="kuantity">Berat Pakaian (kg):</label>
+                  <input class="form-control" type="number" id="kuantity" name="kuantity" required />
+
+                  <label class="form-label" for="status">Status:</label>
+                  <select class="form-select" id="status" name="status" required>
+                    <option value="Pending" style="color: red">Pending</option>
+                    <option value="Selesai" style="color: green">Selesai</option></select
+                  >
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="tanggal">Tanggal Estimasi:</label>
+                  <input class="form-control" type="date" id="tanggal" name="tanggal" required />
+                </div>
+
+                <div class="mb-3">
+                  <label class="form-label" for="paymentStatus">Status Bayar:</label>
+                  <select class="form-control" id="paymentStatus" name="status_bayar" required>
+                    <option value="Belum Dibayar" style="color: red">Belum Dibayar</option>
+                    <option value="Sudah Dibayar" style="color: green">Sudah Dibayar</option></select
+                  >
+                </div>
+
+                <div class="mb-3">
+                  <button type="button" id="submit" hidden="1">submit</button>
+
+                  <label class="form-label" for="harga">Total Harga:</label>
+                  <input class="form-control" type="text" id="harga" name="harga" required />
+                </div>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" onclick="$('#submit').click()">Save changes</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal TAMBAH -->
+    <div class="modal fade" id="modaltambah" tabindex="-1" data-bs-backdrop="static" data-bs-keyboard="false" role="dialog" aria-labelledby="modalTitleId" aria-hidden="true">
+      <div class="modal-dialog modal-dialog-scrollable modal-dialog-centered modal-md" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="modalTitleId">Tambah Laundry</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <div class="modal-body">
+            <form id="orderForm1">
+              <div class="mb-3">
+                <label class="form-label" for="nomor_kamar">Nomor Kamar:</label>
+                <input type="text" id="nomor_kamar" class="form-control" name="nomor_kamar" required />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="keterangan">Keterangan:</label>
+                <select id="keterangan" class="form-control" name="keterangan" required>
+                  <option value="Cuci Kering">Cuci Kering</option>
+                  <option value="Cuci Setrika">Cuci Setrika</option>
+                  <option value="Setrika">Setrika</option></select
+                >
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="kuantity">Berat Pakaian (kg):</label>
+                <input class="form-control" type="number" id="kuantity1" name="kuantity" required />
+
+                <label class="form-label" for="status">Status:</label>
+                <select id="status" name="status" required class="form-control">
+                  <option value="Pending" style="color: red">Pending</option>
+                  <option value="Selesai" style="color: green">Selesai</option></select
+                >
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="tanggal">Tanggal :</label>
+                <input class="form-control" type="date" id="tanggal1" name="tanggal" required />
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label" for="paymentStatus">Status Bayar:</label>
+                <select class="form-control" id="paymentStatus" name="status_bayar" required>
+                  <option value="Belum Dibayar" style="color: red">Belum Dibayar</option>
+                  <option value="Sudah Dibayar" style="color: green">Sudah Dibayar</option></select
+                >
+              </div>
+              <div class="mb-3">
+                <label class="form-label" for="harga">Total Harga:</label>
+                <input class="form-control" type="text" id="harga1" name="harga" required />
+              </div>
+              <div class="mb-3"></div>
+              <button type="submit" id="tsubmit" hidden="1"></button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" id="submit" onclick="$('#tsubmit').click()" class="btn btn-success">submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Optional: Place to the bottom of scripts -->
+    <script>
+      //   const myModal = new bootstrap.Modal(
+      //     document.getElementById("modaltambah"),
+      //     options
+      //   );
+
+      function calculateTotalPrice() {
+        var pricePerKg = 5000; // Harga per kg (sesuaikan dengan kebutuhan Anda)
+        var kuantity = parseFloat(document.getElementById("kuantity").value);
+        var status = document.getElementById("status").value;
+
+        if (!isNaN(kuantity) && kuantity >= 0) {
+          var totalPrice = pricePerKg * kuantity;
+          document.getElementById("harga").value = totalPrice;
+
+          if (status === "Selesai") {
+            document.getElementById("harga").value;
+          }
+        } else {
+          document.getElementById("harga").value = "Masukkan berat yang valid.";
+        }
+      }
+
+      //   function ambilForm() {
+      //     var form =
+      //       $("#orderForm").serializeArray();
+
+      //     var data =
+      //       JSON.parse(
+      //         localStorage.getItem("form")
+      //       ) || [];
+      //     data.push(form);
+      //     localStorage.setItem(
+      //       "form",
+      //       JSON.stringify(data)
+      //     );
+      //   }
+
+      function kirimForm(ambilData) {
+        // var data = JSON.parse(
+        //   localStorage.getItem("form")
+        // );
+
+        $.each(ambilData, function (indexInArray, valueOfElement) {
+          $.ajax({
+            type: "POST",
+            url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/input",
+            data: valueOfElement,
+            dataType: "JSON",
+            success: function (response) {
+              localStorage.removeItem("form");
+              // window.location.reload();
+            },
+          });
+        });
+      }
+      $("#orderForm").on("focusout", "#kuantity", function () {
+        calculateTotalPrice();
+      });
+      $("#orderForm1").on("focusout", "#kuantity1", function () {
+        var today = new Date();
+
+        // Mendapatkan string tanggal dalam format yyyy-mm-dd
+        var formattedDate = today.toISOString().split("T")[0];
+
+        // Mengisi nilai pada elemen input dengan id "tanggal" dengan tanggal hari ini
+        $("#tanggal1").val(formattedDate);
+        var pricePerKg = 5000; // Harga per kg (sesuaikan dengan kebutuhan Anda)
+        var kuantity = parseFloat(document.getElementById("kuantity1").value);
+
+        if (!isNaN(kuantity) && kuantity >= 0) {
+          var totalPrice = pricePerKg * kuantity;
+          document.getElementById("harga1").value = totalPrice;
+
+          if (status === "Selesai") {
+            document.getElementById("harga").value;
+          }
+        } else {
+          document.getElementById("harga1").value = "Masukkan berat yang valid.";
+        }
+      });
+      var db;
+
+      var laundry_db = indexedDB.open("laundry", 1);
+      laundry_db.onupgradeneeded = function (event) {
+        db = event.target.result;
+        var tb_laundry = db.createObjectStore("laundry", { keyPath: "id", autoIncrement: true });
+      };
+
+      laundry_db.onsuccess = function (event) {
+        db = event.target.result;
+        $("#orderForm1").submit(function (e) {
+          event.preventDefault();
+          console.log("lalalal");
+          var izinRw = db.transaction(["laundry"], "readwrite");
+          var pilihTabel = izinRw.objectStore("laundry");
+          var tambahData = pilihTabel.add($("#orderForm1").serializeArray());
+          $("#nomor_kamar").val("");
+          $("#keterangan").val("");
+          $("#kuantity").val("");
+          $("#status").val("");
+          $("#status_bayar").val("");
+          $("#harga").val("");
+          $("#tanggal").val("");
+
+          if (navigator.onLine) {
+            ambilData = pilihTabel.getAll();
+            ambilData.onsuccess = function (event) {
+              kirimForm(event.target.result);
+              pilihTabel.clear();
+            };
+          }
+          tambahData.onerror = function (event) {
+            console.error("Error");
+          };
+        });
+        var izinR = db.transaction(["laundry"], "readwrite");
+        var pilihTabel = izinR.objectStore("laundry");
+        var ambilData = pilihTabel.getAll();
+        ambilData.onsuccess = function (event) {
+          data = event.target.result;
+          if (data[0]) {
+            window.addEventListener("online", function () {
+              var izinR = db.transaction(["laundry"], "readwrite");
+              var pilihTabel = izinR.objectStore("laundry");
+              kirimForm(data);
+              pilihTabel.clear();
+            });
+          }
+        };
+      };
+
+      $("#kuantity").on("focusout", function () {
+        calculateTotalPrice();
+      });
+
+      function konfersi_status(status) { 
+        var el=``
+        if(status=='Pending'){
+el=`<span class='badge bg-warning'>Pending</span>`
+        }else{
+          el=`<span class='badge bg-warning'>Pending</span>`
+
+        }
+        return el
+       }
+      $.ajax({
+        type: "GET",
+        url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/all",
+        dataType: "JSON",
+        success: function (response) {
+          $.each(response.data, function (indexInArray, valueOfElement) {
+            $("#tabelpelanggan tbody").append(` <tr>
+                          <td>${indexInArray + 1}</td>
+                          <td>${valueOfElement.nomor_kamar}</td>
+                          <td>${valueOfElement.keterangan}</td>
+                          <td>${valueOfElement.tanggal}</td>
+                          <td>${valueOfElement.kuantity}</td>
+                          <td>${valueOfElement.harga}</td>
+                          </td>
+                          <td>
+                            <span>${valueOfElement.status_bayar}</span>
+                          </td>
+                          <td>
+                            <span>${konfersi_status(valueOfElement.status)}</span>
+                          </td>
+                          <td><button
+                        type="button"
+                        id="edit"
+                        class="btn btn-primary"
+                        data-bs-toggle="modal"
+                        data-bs-target="#modalPelanggan"
+                        data-id="${valueOfElement.id}">edit</button>
+                    </td>
+                          </td>
+                          <td><button
+                        type="button"
+                        id="hapus"
+                        class="btn btn-danger"
+                        data-id="${valueOfElement.id}">hapus</button>
+                    </td>
+                        </tr>`);
+          });
+          $(function () {
+            $("#tabelpelanggan").DataTable({
+              paging: true,
+              searching: true,
+              ordering: true,
+              info: true,
+              autoWidth: false,
+              responsive: true,
+            });
+          });
+        },
+      });
+
+      $("#tabelpelanggan").on("click", "#edit", function (event) {
+        event.preventDefault();
+        var id = $("#edit").data("id");
+        $.ajax({
+          type: "GET",
+          url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/cari/id/eq/" + id,
+
+          dataType: "JSON",
+          success: function (response) {
+            $("#nomor_kamar").val(response.data[0].nomor_kamar);
+            $("#keterangan").val(response.data[0].keterangan);
+            $("#kuantity").val(response.data[0].kuantity);
+            $("#status").val(response.data[0].status);
+            $("#status_bayar").val(response.data[0].status_bayar);
+            $("#harga").val(response.data[0].harga);
+            $("#tanggal").val(response.data[0].tanggal);
+            $("#id").val(response.data[0].id);
+          },
+        });
+      });
+      $("#submit").on("click", function (event) {
+        event.preventDefault();
+        var data = $("#orderForm").serialize();
+        $.ajax({
+          url: "https://informatikaunwaha.com/tugasapi/zakki/api.php",
+          type: "PUT",
+          contentType: "application/x-www-form-urlencoded",
+          data: data,
+          success: function (response) {
+            console.log(response);
+            $("#modalPelanggan").modal("hide");
+            window.location.reload();
+          },
+        });
+      });
+      $("#tabelpelanggan").on("click", "#hapus", function (event) {
+        event.preventDefault();
+        var data = $("#hapus").data("id");
+        console.log(data);
+        $.ajax({
+          url: "https://informatikaunwaha.com/tugasapi/zakki/api.php",
+          type: "DELETE",
+          contentType: "application/x-www-form-urlencoded",
+          data: { id: data, kolom: "id" },
+          success: function (response) {
+            window.location.reload();
+          },
+        });
+      });
+    </script>
+

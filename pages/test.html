@@ -1,0 +1,175 @@
+<div class="row">
+    <div class="col-md-4">
+      <div class="card">
+        <img
+          src="assets/img/rooms/1.jpg"
+          class="card-img-top"
+          alt="Gambar Ruangan"
+        />
+        <div class="card-body">
+          <h5 class="card-title">Ruangan 101</h5>
+          <p class="card-text">Tipe: Standard</p>
+          <p class="card-text">Harga: Rp 500.000,-</p>
+          <!-- Button trigger modal -->
+          <button
+            type="button"
+            class="btn btn-success"
+            data-bs-toggle="modal"
+            data-bs-target="#exampleModal"
+          >
+            Pesan
+          </button>
+          <!-- Modal -->
+          <div
+            class="modal fade"
+            id="exampleModal"
+            tabindex="-1"
+            aria-labelledby="exampleModalLabel"
+            aria-hidden="true"
+          >
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="exampleModalLabel">
+                    Isi Administasi
+                  </h5>
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div class="modal-body">
+                  <div class="card-body">
+                    <form id="form-input">
+                      <div class="form-group">
+                        <label for="name">Name <span>*</span></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="name"
+                          placeholder="Your Name"
+                          name="name"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="email">Email <span>*</span></label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="email"
+                          placeholder="Your Email"
+                          name="email"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="check-in"
+                          >Check In <span>*</span></label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="check-in"
+                          name="checkin"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="check-out"
+                          >Check Out <span>*</span></label
+                        >
+                        <input
+                          type="date"
+                          class="form-control"
+                          id="check-out"
+                          name="checkout"
+                        />
+                      </div>
+                      <div class="form-group">
+                        <label for="adults">Adults <span>*</span></label>
+                        <select class="form-control" id="adults">
+                          <option value="1">1 adults</option>
+                          <option value="2">2 adults</option>
+                          <option value="3">3 adults</option>
+                          <option value="4">4 adults</option>
+                          <option value="5">5 adults</option>
+                          <option value="6">6 adults</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="children"
+                          >Children <span>*</span></label
+                        >
+                        <select class="form-control" id="children">
+                          <option value="0">0 child</option>
+                          <option value="1">1 child</option>
+                          <option value="2">2 child</option>
+                          <option value="3">3 child</option>
+                          <option value="4">4 child</option>
+                          <option value="5">5 child</option>
+                          <option value="6">6 child</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="rooms">Rooms <span>*</span></label>
+                        <select class="form-control" id="rooms">
+                          <option value="1">1 room</option>
+                          <option value="2">2 rooms</option>
+                          <option value="3">3 rooms</option>
+                          <option value="4">4 rooms</option>
+                          <option value="5">5 rooms</option>
+                          <option value="6">6 rooms</option>
+                        </select>
+                      </div>
+                      <div class="form-group">
+                        <label for="room-type"
+                          >Room Type <span>*</span></label
+                        >
+                        <select
+                          class="form-control"
+                          id="room-type"
+                          name="room"
+                        >
+                          <option value="exclusive_rooms">
+                            Exclusive Rooms
+                          </option>
+                          <option value="family_rooms">
+                            Family Rooms
+                          </option>
+                          <option value="daily_rooms">Daily Rooms</option>
+                          <option value="panoramic_rooms">
+                            Panoramic Rooms
+                          </option>
+                        </select>
+                      </div>
+                      <button
+                        type="submit"
+                        id="submit"
+                        hidden="1"
+                      ></button>
+                    </form>
+                  </div>
+                </div>
+                <div class="modal-footer">
+                  <button
+                    type="button"
+                    class="btn btn-secondary"
+                    data-bs-dismiss="modal"
+                  >
+                    Close
+                  </button>
+                  <button
+                    type="button"
+                    class="btn btn-primary"
+                    onclick="$('#submit').click()"
+                  >
+                    Save changes
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

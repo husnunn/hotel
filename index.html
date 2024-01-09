@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- css -->
+    <link rel="stylesheet" href="./assets/style.css" />
+    <link rel="stylesheet" href="./assets/css/custom.css" />
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <!-- datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.1/r-2.4.0/datatables.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  </head>
+
+  <body id="body-pd" class="bg-light">
+    <header class="header glass" id="header">
+      <div class="header_toggle">
+        <i class="bx bx-menu" id="header-toggle"></i>
+      </div>
+      <div class="header_img">
+        <img src="assets/img/arashmil.jpg" alt="" />
+      </div>
+    </header>
+
+    <div class="l-navbar" id="nav-bar">
+      <nav class="nav">
+        <div>
+          <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="HOTEL" data-halaman="home.html" class="nav_logo">
+            <i class="bx bx-layer nav_logo-icon"></i>
+            <span class="nav_logo-name"><b>HOTEL</b></span>
+          </a>
+          <div class="nav_list">
+
+            <span class="divider">Home</span>
+
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Dashboard" data-halaman="home.html" class="nav_link">
+              <i class="bx bx-pencil nav_icon"></i>
+              <span class="nav_name">Dashboard</span>
+            </a>
+
+            <span class="divider">User</span>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Booking" data-halaman="crud.html" class="nav_link">
+              <i class="bx bx-user nav_icon"></i>
+              <span class="nav_name">Users</span>
+            </a>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Tamu" data-halaman="datatamu.html" class="nav_link">
+              <i class="bx bx-book-open nav_icon"></i>
+              <span class="nav_name">Data Tamu</span>
+            </a>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Check In" data-halaman="checkin.html " class="nav_link">
+              <i class="bx bx-user nav_icon"></i>
+              <span class="nav_name">Check In</span>
+            </a>
+
+            <span class="divider">Inventori</span>
+
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Data barang" data-halaman="databarang.html" class="nav_link">
+              <i class="bx bx-box nav_icon"></i>
+              <span class="nav_name">Data Barang</span>
+            </a>
+
+            <span class="divider">Laundry</span>
+
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Laundry" data-halaman="datalaundry.html" class="nav_link active">
+              <i class="bx bx-closet nav_icon"></i>
+              <span class="nav_name">Laundry</span>
+            </a>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Pendapatan Laundry" data-halaman="datapendapatan.html" class="nav_link">
+              <i class="bx bx-line-chart nav_icon"></i>
+              <span class="nav_name">Pendapatan Laundry</span>
+            </a>
+          </div>
+        </div>
+        <a href="javascript:void(0)" data-halaman="#" class="nav_link">
+          <i class="bx bx-log-out nav_icon"></i>
+          <span class="nav_name">SignOut</span>
+        </a>
+      </nav>
+    </div>
+
+    <main id="mainkonten" class="container-fluid"></main>
+
+    <script src="./assets/main.js"></script>
+    <script src="./assets/js/app.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Datatable -->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/r-2.4.0/datatables.min.js"></script>
+    <!-- Sweet Alert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+  </body>
+</html>

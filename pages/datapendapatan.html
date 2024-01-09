@@ -1,0 +1,149 @@
+
+
+    <div
+      class="container-fluid mt-5"
+      style="margin-top: 100px !important"
+    >
+ 
+ 
+    <div class="row">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                Tabel Pendapatan
+              </h3>
+            </div>
+            <div class="card-body">
+              <table
+                id="pendapatanTable"
+                class="table table-bordered table-hover"
+              >
+                <thead>
+                  <tr>
+                    <th>No</th>
+                    <th>Nama Pelanggan</th>
+                    <th>
+                      Tanggal Transaksi
+                    </th>
+                    <th>
+                      Jumlah Pendapatan
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                 
+                   </tbody>
+                <tfoot>
+                  <tr>
+                    <th
+                      colspan="3"
+                      class="text-right"
+                    >
+                      Total:
+                    </th>
+                    <th
+                      id="totalHarga"
+                    ></th>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+ 
+
+ <script>
+    // Script untuk menghitung total harga
+    document.addEventListener(
+      "DOMContentLoaded",
+      function () {
+        const table =
+          document.getElementById(
+            "pendapatanTable"
+          );
+        const rows = table
+          .getElementsByTagName("tbody")[0]
+          .getElementsByTagName("tr");
+        let total = 0;
+
+        for (
+          let i = 0;
+          i < rows.length;
+          i++
+        ) {
+          const row = rows[i];
+          const hargaCell = row.cells[3];
+          const hargaText =
+            hargaCell.textContent;
+          const harga = parseInt(
+            hargaText
+              .replace("Rp ", "")
+              .replace(",", "")
+          );
+          total += harga;
+        }
+
+        const totalHargaCell =
+          document.getElementById(
+            "totalHarga"
+          );
+        totalHargaCell.textContent =
+          "Rp " + total.toLocaleString();
+      }
+    );
+
+    $.ajax({
+        type: "GET",
+        url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/join",
+        dataType: "json",
+        success: function (response) {
+          console.log(
+            response.data[0].total_harga
+          );
+          $("#totalHarga").text(
+            response.data[0].total_harga
+          );
+          $.each(
+            response.data,
+            function (
+              indexInArray,
+              valueOfElement
+            ) {
+              $("#pendapatanTable tbody")
+                .append(` <tr>
+                          <td>${
+                            indexInArray + 1
+                          }</td>
+                          <td>${
+                            valueOfElement.name
+                          }</td>
+                          <td>${
+                            valueOfElement.tanggal
+                          }</td>
+                          <td>Rp ${
+                            valueOfElement.harga
+                          }</td>
+                         
+                        
+                        </tr>`);
+            }
+          );
+          $(function () {
+            $("#tabelpelanggan").DataTable({
+              paging: true,
+              lengthChange: false,
+              searching: false,
+              ordering: true,
+              info: true,
+              autoWidth: false,
+              responsive: true,
+            });
+          });
+        },
+      });
+  </script>

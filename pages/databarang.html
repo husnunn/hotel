@@ -1,0 +1,449 @@
+<br>
+<br>
+<div class="container mt-5">
+  <h3 class="text-center mt-5">Data Barang</h3>
+  <button type="button" class="btn btn-success ms-auto" data-toggle="modal" data-target="#modaltambah" onclick="redirectToTambahData()">Tambah Data</button>
+  <table class="table table-bordered" id="barangTable">
+    <thead>
+      <tr>
+        <!-- <th scope="col">Id Barang</th> -->
+        <th scope="col">Nama Barang</th>
+        <th scope="col">Kategori</th>
+        <th scope="col">Lokasi Barang</th>
+        <!-- <th scope="col">Tanggal Masuk</th> -->
+        <th scope="col">Kondisi</th>
+        <th scope="col">Hapus</th>
+        <th scope="col">Edit</th>
+      </tr>
+    </thead>
+    <tbody id="dataBody">
+      <!-- Data will be displayed here using jQuery -->
+    </tbody>
+  </table>
+</div>
+
+<!-- Modal Tambah Data -->
+<div class="modal fade" id="modaltambah" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Tambah Data Barang</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Tempatkan formulir tambah data di sini -->
+        <form id="tambahFormModal">
+          <label for="nama_barang_modal">Nama Barang:</label>
+          <input type="text" id="nama_barang_modal" name="nama_barang_modal" required />
+
+          <label for="kategori_modal">Kategori:</label>
+          <input type="text" id="kategori_modal" name="kategori_modal" required />
+
+          <label for="lokasi_barang_modal">Lokasi Barang:</label>
+          <input type="text" id="lokasi_barang_modal" name="lokasi_barang_modal" required />
+
+          <label for="kondisi_modal">Kondisi:</label>
+          <input type="text" id="kondisi_modal" name="kondisi_modal" required />
+
+          <button type="button" onclick="tambahDataModal()">Tambah Data</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Edit Data -->
+<div class="modal fade" id="modaledit" tabindex="-1" role="dialog" aria-labelledby="modaleditLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modaleditLabel">Edit Data Barang</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- Tempatkan formulir edit data di sini -->
+        <form id="editFormModal">
+          <input type="hidden" id="id_barang" />
+          <label for="nama_barang">Nama Barang:</label>
+          <input type="text" id="nama_barang" name="nama_barang" required />
+
+          <label for="kategori">Kategori:</label>
+          <input type="text" id="kategori" name="kategori" required />
+
+          <label for="lokasi_barang">Lokasi Barang:</label>
+          <input type="text" id="lokasi_barang" name="lokasi_barang" required />
+
+          <label for="kondisi">Kondisi:</label>
+          <input type="text" id="kondisi" name="kondisi" required />
+
+          <button type="button" onclick="simpanPerubahanEdit()">Simpan Perubahan</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    $.ajax({
+      url: "https://tugasapi.informatikaunwaha.com/septian/apihotel/api.php",
+      method: "GET",
+      dataType: "json",
+      success: function (data) {
+        console.log("Received data:", data);
+
+        var tableBody = $("#dataBody");
+
+        $.each(data, function (index, row) {
+          var newRow = $("<tr>");
+
+          //   newRow.append(
+          //     $("<td>").text(row.id_barang)
+          //   );
+          newRow.append($("<td>").text(row.nama_barang));
+          newRow.append($("<td>").text(row.kategori));
+          newRow.append($("<td>").text("kamar " + row.lokasi_barang));
+          //   newRow.append(
+          //     $("<td>").text(row.tanggal_masuk)
+          //   );
+          newRow.append($("<td>").text(row.kondisi));
+
+          var deleteButton = $("<button class='btn btn-danger btn-sm'>")
+            .text("Hapus")
+            .click(function () {
+              hapusData(row.id_barang);
+            });
+          newRow.append($("<td>").append(deleteButton));
+
+          var editButton = $("<button class='btn btn-warning btn-sm'>")
+            .text("Edit")
+            .click(function () {
+              editData(row.id_barang);
+            });
+          newRow.append($("<td>").append(editButton));
+
+          tableBody.append(newRow);
+        });
+        $(function () {
+          $("#barangTable").DataTable({
+            paging: true,
+            lengthChange: false,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+          });
+        });
+      },
+      error: function (xhr, status, error) {
+        console.error("Failed to fetch data. Status code: " + xhr.status);
+      },
+    });
+  });
+
+  function hapusData(id_barang) {
+    console.log("Deleting data with id_barang:", id_barang);
+
+    if (confirm("Apakah Anda yakin ingin menghapus data?")) {
+      $.ajax({
+        url: "https://tugasapi.informatikaunwaha.com/septian/apihotel/api.php?action=hapus&id_barang=" + id_barang,
+        method: "GET",
+        dataType: "json",
+        success: function (response) {
+          console.log("Deletion response:", response);
+          alert(response.message);
+          location.reload();
+        },
+        error: function (xhr, status, error) {
+          console.error("Failed to delete data. Status code: " + xhr.status);
+        },
+      });
+    }
+  }
+
+  function redirectToTambahData() {
+    $("#modaltambah").modal("show");
+  }
+
+  // Fungsi untuk menyimpan data ke localStorage secara lokal ketika aplikasi dalam mode offline
+  function simpanKeLocalStorage(data) {
+    // Mengambil data yang sudah ada dari localStorage atau membuat array baru jika belum ada
+    var existingData = JSON.parse(localStorage.getItem("offlineData")) || [];
+
+    // Menambahkan data baru ke dalam array
+    existingData.push(data);
+
+    // Menyimpan array yang diperbarui ke localStorage
+    localStorage.setItem("offlineData", JSON.stringify(existingData));
+  }
+
+  // Fungsi untuk menyinkronkan data offline dengan server saat aplikasi kembali online
+  function syncData() {
+    // Mengambil data offline dari localStorage
+    var offlineData = JSON.parse(localStorage.getItem("offlineData"));
+
+    // Jika ada data offline
+    if (offlineData && offlineData.length > 0) {
+      // Loop melalui setiap data dan kirim ke server menggunakan fungsi kirimDataKeServer(data)
+      for (var i = 0; i < offlineData.length; i++) {
+        kirimDataKeServer(offlineData[i]);
+      }
+
+      // Setelah semua data dikirim, menghapus data offline dari localStorage
+      localStorage.removeItem("offlineData");
+
+      // Memberikan umpan balik ke konsol bahwa data berhasil disinkronkan dengan server
+      console.log("Data berhasil disinkronkan dengan server.");
+      // Berikan umpan balik tambahan jika diperlukan
+    }
+  }
+
+  // Fungsi untuk mengirim data ke server
+  function kirimDataKeServer(data) {
+    $.ajax({
+      url: "https://tugasapi.informatikaunwaha.com/septian/apihotel/api_tambah.php",
+      method: "POST",
+      contentType: "application/x-www-form-urlencoded",
+      data: {
+        id_barang: data.id_barang,
+        nama_barang: data.nama_barang,
+        kategori: data.kategori,
+        lokasi_barang: data.lokasi_barang,
+        kondisi: data.kondisi,
+      },
+      success: function (response) {
+        console.log("Received response:", response);
+        // Arahkan pengguna ke halaman databarang.html setelah berhasil
+        location.reload();
+      },
+      error: function (xhr, status, error) {
+        // Menampilkan pesan kesalahan jika gagal mengirim data
+        console.error("Failed to send data. Status code: " + xhr.status);
+
+        // Berikan pesan kesalahan kepada pengguna
+        alert("Gagal mengirim data ke server. Silakan coba lagi.");
+      },
+    });
+  }
+
+  // Fungsi untuk menambahkan data baru dari modal
+  function tambahDataModal() {
+    // Mengambil nilai dari elemen formulir HTML di dalam modal
+    var id_barang = $("#id_barang_modal").val();
+    var nama_barang = $("#nama_barang_modal").val();
+    var kategori = $("#kategori_modal").val();
+    var lokasi_barang = $("#lokasi_barang_modal").val();
+    var kondisi = $("#kondisi_modal").val();
+
+    // Validasi input sebelum menyimpan
+    if (!nama_barang || !kategori || !lokasi_barang || !kondisi) {
+      alert("Harap lengkapi semua field sebelum menambah data.");
+      return;
+    }
+
+    // Membuat objek data dari nilai formulir
+    var data = {
+      id_barang: id_barang,
+      nama_barang: nama_barang,
+      kategori: kategori,
+      lokasi_barang: lokasi_barang,
+      kondisi: kondisi,
+    };
+
+    // Jika koneksi online, langsung mengirimkan data ke server
+    if (navigator.onLine) {
+      kirimDataKeServer(data);
+    } else {
+      // Jika koneksi offline, menyimpan data secara lokal
+      simpanKeLocalStorage(data);
+
+      // Menampilkan pesan bahwa data disimpan secara lokal dan akan disinkronkan nanti
+      alert("Data disimpan secara lokal. Akan disinkronkan dengan server saat koneksi tersambung kembali.");
+    }
+
+    // Mengosongkan formulir setelah data ditambahkan
+    $("#tambahFormModal").trigger("reset");
+
+    // Menutup modal setelah menambahkan data
+    $("#modaltambah").modal("hide");
+  }
+
+  // Fungsi untuk mengambil dan menyiapkan data untuk diedit
+  function editData(id_barang) {
+    console.log("Editing data with id_barang:", id_barang);
+
+    // Jika offline, ambil data dari localStorage
+    if (!navigator.onLine) {
+      var offlineData = JSON.parse(localStorage.getItem("offlineData"));
+
+      if (offlineData && offlineData.length > 0) {
+        var data = offlineData.find((item) => item.id_barang === id_barang);
+
+        if (data) {
+          // Menyimpan data yang akan diubah di dalam localStorage
+          localStorage.setItem("editData", JSON.stringify(data));
+
+          // Mengisi formulir modal dengan data yang diperoleh
+          $("#id_barang").val(data.id_barang);
+          $("#nama_barang").val(data.nama_barang);
+          $("#kategori").val(data.kategori);
+          $("#lokasi_barang").val(data.lokasi_barang);
+
+          $("#kondisi").val(data.kondisi);
+
+          // Menampilkan modal edit
+          $("#modaledit").modal("show");
+        } else {
+          alert("Data tidak ditemukan di localStorage.");
+        }
+      } else {
+        alert("Tidak ada data di localStorage.");
+      }
+    } else {
+      // Jika online, ambil data dari server
+      $.ajax({
+        url: "https://tugasapi.informatikaunwaha.com/septian/apihotel/api.php?id_barang=" + id_barang,
+        method: "GET",
+        success: function (data) {
+          if (data.length > 0) {
+            // Menyimpan data yang akan diubah di dalam localStorage
+            localStorage.setItem("editData", JSON.stringify(data[0]));
+
+            // Mengisi formulir modal dengan data yang diperoleh
+            $("#id_barang").val(data[0].id_barang);
+            $("#nama_barang").val(data[0].nama_barang);
+            $("#kategori").val(data[0].kategori);
+            $("#lokasi_barang").val(data[0].lokasi_barang);
+
+            $("#kondisi").val(data[0].kondisi);
+
+            // Menampilkan modal edit
+            $("#modaledit").modal("show");
+          } else {
+            alert("Data tidak ditemukan di server.");
+          }
+        },
+      });
+    }
+  }
+
+  // Fungsi untuk menyimpan perubahan ke server atau localStorage (jika offline)
+  function simpanPerubahanEdit() {
+    console.log("Mengeksekusi fungsi simpanPerubahanEdit");
+
+    var id_barang = $("#id_barang").val();
+    var nama_barang = $("#nama_barang").val();
+    var kategori = $("#kategori").val();
+    var lokasi_barang = $("#lokasi_barang").val();
+
+    var kondisi = $("#kondisi").val();
+
+    console.log("id_barang:", id_barang);
+    console.log("nama_barang:", nama_barang);
+    console.log("kategori:", kategori);
+    console.log("lokasi_barang:", lokasi_barang);
+
+    console.log("kondisi:", kondisi);
+
+    if (!nama_barang || !kategori || !lokasi_barang || !kondisi) {
+      alert("Harap lengkapi semua field sebelum menyimpan perubahan.");
+      return;
+    }
+
+    var data = {
+      id_barang: id_barang,
+      nama_barang: nama_barang,
+      kategori: kategori,
+      lokasi_barang: lokasi_barang,
+
+      kondisi: kondisi,
+    };
+
+    // Jika sedang offline, simpan data ke localStorage
+    if (!navigator.onLine) {
+      // Ambil data yang sudah ada di localStorage atau buat array baru jika belum ada
+      var offlineData = JSON.parse(localStorage.getItem("offlineData")) || [];
+
+      // Tambahkan data baru ke dalam array
+      offlineData.push(data);
+
+      // Simpan array yang diperbarui ke localStorage
+      localStorage.setItem("offlineData", JSON.stringify(offlineData));
+
+      // Menampilkan pesan bahwa data disimpan secara lokal dan akan disinkronkan nanti
+      alert("Perubahan disimpan secara lokal. Akan disinkronkan dengan server saat koneksi tersambung kembali.");
+    } else {
+      // Jika online, kirim data ke server
+      $.ajax({
+        url: "https://tugasapi.informatikaunwaha.com/septian/apihotel/api.php",
+        method: "POST",
+        contentType: "application/json",
+        data: JSON.stringify(data),
+        success: function (response) {
+          console.log("Menerima respons:", response);
+
+          // Sesuaikan tindakan setelah berhasil menyimpan perubahan
+          // Contoh: memuat ulang data dan memperbarui tampilan
+          loadAndDisplayData();
+
+          // Menutup modal edit
+          $("#modaledit").modal("hide");
+        },
+        error: function (xhr, status, error) {
+          console.error("Gagal menyimpan data. Kode status: " + xhr.status);
+          alert("Gagal menyimpan perubahan. Silakan coba lagi.");
+        },
+      });
+    }
+  }
+
+  // Fungsi untuk memuat dan menampilkan data baru
+  function loadAndDisplayData() {
+    $.ajax({
+      url: "https://tugasapi.informatikaunwaha.com/septian/apihotel/api.php",
+      method: "GET",
+      dataType: "json",
+      success: function (data) {
+        console.log("Received data:", data);
+
+        // Kosongkan tabel
+        $("#dataBody").empty();
+
+        // Tampilkan data baru
+        $.each(data, function (index, row) {
+          var newRow = $("<tr>");
+
+          newRow.append($("<td>").text(row.nama_barang));
+          newRow.append($("<td>").text(row.kategori));
+          newRow.append($("<td>").text(row.lokasi_barang));
+
+          newRow.append($("<td>").text(row.kondisi));
+
+          var deleteButton = $("<button class='btn btn-danger btn-sm'>")
+            .text("Hapus")
+            .click(function () {
+              hapusData(row.id_barang);
+            });
+          newRow.append($("<td>").append(deleteButton));
+
+          var editButton = $("<button class='btn btn-warning btn-sm'>")
+            .text("Edit")
+            .click(function () {
+              editData(row.id_barang);
+            });
+          newRow.append($("<td>").append(editButton));
+
+          $("#dataBody").append(newRow);
+        });
+      },
+      error: function (xhr, status, error) {
+        console.error("Failed to fetch data. Status code: " + xhr.status);
+      },
+    });
+  }
+</script>

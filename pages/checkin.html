@@ -1,0 +1,183 @@
+<br>
+<br>
+<br>
+<br>
+<div class="row" id="kamar"></div>
+
+<!-- Modal Tambah -->
+<div class="modal fade" role="dialog" id="modaltambah">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 20px">Tambah Tamu</h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" method="post" id="formTambahtamu">
+          <div class="row">
+            <div class="form-group col-6"><label>Nama Tamu</label><input type="text" class="form-control" id="namaTamu" name="namaTamu" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>NIK Tamu</label><input type="text" class="form-control" id="nikTamu" name="nikTamu" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>Email Tamu</label><input type="email" class="form-control" id="email" name="email" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>Tanggal Check In</label><input type="date" class="form-control" id="tglCi" name="tglCi" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>Jam Check In</label><input type="text" class="form-control" id="jamCi" name="jamCi" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>Tanggal Check Out</label><input type="date" class="form-control" id="tglCo" name="tglCo" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>Jam Check Out</label><input type="text" class="form-control" id="jamCo" name="jamCo" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>Jumlah Hari</label><input type="text" class="form-control" id="jmlHari" name="jmlHari" style="font-size: 20px" /></div>
+            <input type="hidden" id="no_kamar" name="noKamar" />
+
+            <div class="form-group col-md-12">
+              <label>Pembayaran</label>
+              <select id="pembayaran" name="pembayaran" class="form-control" style="font-size: 20px">
+                <option value="Cash">Cash</option>
+                <option value="Transfer Bank">Transfer BANK</option>
+                <option value="Dana">Dana</option>
+                <option value="Gopay">Gopay</option>
+              </select>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button onclick="tambahTamu()" type="button" class="btn btn-primary" id="btnSimpan">Check in</button>
+            <button type="button" class="btn btn-secondary" onclick="kosongForm()">Reset</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $.ajax({
+    type: "GET",
+    url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/kamar",
+    dataType: "json",
+    success: function (response) {
+      console.log(response.data);
+      switch (response.data) {
+        case "data kosong":
+          $("#kamar").append(` <div class="col-md-4">
+      <div class="card">
+        <div class="card-body">
+        <b>Kamar kosong</b>
+        </div>
+      </div>
+    </div>
+  </div>`);
+          break;
+
+        default:
+          break;
+      }
+      $.each(response.data, function (indexInArray, valueOfElement) {
+        console.log(valueOfElement);
+        $("#kamar").append(`   <div class="col-md-4">
+            <div class="card">
+              <img
+                src="assets/img_kamar/${valueOfElement.foto}"
+                class="card-img-top"
+                alt="Gambar Ruangan"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Ruangan: ${valueOfElement.nomor_kamar}</h5>
+                <p class="card-text">Tipe: ${valueOfElement.tipe_kamar}</p>
+                <p class="card-text">Harga: ${valueOfElement.harga}</p>
+                <p class="card-text">Ketersedian: Tersedia</p>
+                
+                <!-- Button trigger modal -->
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modaltambah"
+                  data-no_kamar='${valueOfElement.nomor_kamar}'
+                  id='pesan'
+                >
+                  Pesan
+                </button>
+
+              </div>
+            </div>
+          </div>
+        </div>`);
+      });
+    },
+  });
+  $("#kamar").on("click", "#pesan", function () {
+    var no_kamar = $(this).data("no_kamar");
+    $("#no_kamar").val(no_kamar);
+  });
+
+  function tambahTamu() {
+    var form = $("#formTambahtamu").serializeArray();
+
+    var data = JSON.parse(localStorage.getItem("form")) || [];
+    data.push(form);
+    localStorage.setItem("form", JSON.stringify(data));
+    var no_kamar = $("#no_kamar").val();
+    if (navigator.onLine) {
+      $.each(data, function (indexInArray, valueOfElement) {
+        $.ajax({
+          type: "POST",
+          url: "https://tugasapi.informatikaunwaha.com/husnun/api/api.php/input",
+          dataType: "JSON", // Ganti dengan URL tempat Anda menyimpan fungsi PHP untuk menangani data
+          data: valueOfElement,
+          success: function (response) {
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: "Data Berhasil Di Tambahkan!",
+              color: "#716add",
+              showConfirmButton: true,
+            });
+
+            localStorage.removeItem("form");
+            $.ajax({
+              type: "PUT",
+              url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/ketersediaan",
+              data: {
+                nomor_kamar: no_kamar,
+                ketersediaan: "0",
+                statusCi: "1",
+              },
+              dataType: "json",
+              success: function (response) {
+                console.log(response);
+              },
+            });
+          },
+          error: function (error) {
+            console.log("Error: ", error.responseText);
+            Swal.fire({
+              icon: "error",
+              title: "Oops...",
+              text: "Terjadi Kesalahan!",
+            });
+          },
+        });
+      });
+    }
+  }
+
+  function kosongForm() {
+    // Fungsi untuk mengosongkan form
+    $("#nikTamu").val("");
+    $("#namaTamu").val("");
+    $("#email").val("");
+    $("#tglCi").val("");
+    $("#jamCi").val("");
+    $("#tglCo").val("");
+    $("#jamCo").val("");
+    $("#jmlHari").val("");
+    $("#noKamar").val("");
+    $("#pembayaran").val("");
+  }
+
+  function kamarfull() {
+    Swal.fire({
+      icon: "error",
+      title: "Oops...",
+      text: "Kamar Sudah Full!",
+    });
+  }
+</script>
