@@ -180,3 +180,35 @@ a {
         padding-left: calc(var(--nav-width) + 188px)
     }
 }
+
+.nav {
+    display: flex;
+    flex-wrap: wrap;
+    padding-left: 0;
+    margin-bottom: 0;
+    list-style: none;
+    overflow-y: auto;
+}
+
+.nav::-webkit-scrollbar {
+    border-radius: 50px;
+    width: 30px;
+  }
+  
+  .nav::-webkit-scrollbar {
+    width: 0px;
+  }
+  
+  .nav::-webkit-scrollbar-track {
+    background: #d6d6d6;
+  }
+  
+  .nav::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background: #c2c2c2;
+  }
+  
+  /* Handle on hover */
+  .nav::-webkit-scrollbar-thumb:hover {
+    background: #d63c3c;
+  }
