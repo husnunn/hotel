@@ -46,25 +46,15 @@
 </div>
 
 <script>
-    $(document).ready(function () {
-        
-        var options = {
-            chart: {
-      type: "area",
-    },
-    series: [
-      {
-        name: "sales",
-        data: [30, 40, 35, 50, 49, 60, 70, 91, 125],
-      },
-    ],
-    xaxis: {
-      categories: [1991, 1992, 1993, 1994, 1995, 1996, 1997, 1998, 1999],
-    },
-  };
+    var urls="https://informatikaunwaha.com/tugasapi/zakki/api.php/dashboard"
 
-  var chart = new ApexCharts(document.querySelector("#chart"), options);
-
-  chart.render();
-});
+    $.ajax({
+        type: "GET",
+        url: urls,
+        dataType: "JSON",
+        success: function (response) {
+           console.log(response.data)
+        }
+    });
 </script>
+
