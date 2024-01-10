@@ -151,7 +151,10 @@
             dataType: "json",
             success: function (response) {
               console.log(response);
-              $.ajax({
+              
+            },
+          });
+          $.ajax({
                 type: "POST",
                 url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/user_voucher",
                 data: {  id_vc: kode, kode_tamu: kode },
@@ -160,8 +163,6 @@
                   console.log(response);
                 },
               });
-            },
-          });
         }
         $.ajax({
           type: "POST",
