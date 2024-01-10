@@ -1,33 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HOTEL</title>
+    <!-- css -->
+    <link rel="stylesheet" href="./assets/style.css" />
+    <link rel="stylesheet" href="./assets/css/custom.css" />
+    <link rel="stylesheet" href="./assets/lib/css/simple_Cart.css" />
 
-.glass {
-  background: rgba(255, 255, 255, 0.25);
-  backdrop-filter: blur(7.5px);
-  -webkit-backdrop-filter: blur(7.5px);
-  border-radius: 10px;
-}
+    <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css'/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" />
+    <!-- JQUERY -->
+    <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script>
+    <!-- datatable -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.1/r-2.4.0/datatables.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-.l-navbar.show .divider {
-  opacity: 1;
-  display: inline-block;
-}
-.divider {
-  color: rgba(255, 255, 255, 0.54);
-  display: inline-block;
-  width: 100%;
-  text-align: left;
-  background: rgba(255, 0, 0, 0);
-  position: relative;
-  font-size: 14px;
-  margin-left: 24px;
-  opacity: 0;
-  display: none;
-}
 
-.nav_link {
-  font-size: 14px;
-  margin-bottom: 10px;
-  margin-top: 10px;
-}
-.nav_link.active {
-  background: linear-gradient(to left, rgba(0, 0, 0, 0), rgba(255, 255, 255, 0.19));
-}
+  </head>
+
+  <body id="body-pd" class="bg-light">
+    <header class="header glass" id="header">
+      <div class="header_toggle">
+        <i class="bx bx-menu" id="header-toggle"></i>
+      </div>
+      <div class="header_img">
+        <img src="assets/img/arashmil.jpg" alt="" />
+      </div>
+    </header>
+
+    <div class="l-navbar" id="nav-bar">
+      <nav class="nav">
+        <div>
+          <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="HOTEL" data-halaman="home.html" class="nav_logo">
+            <i class="bx bx-layer nav_logo-icon"></i>
+            <span class="nav_logo-name"><b>HOTEL</b></span>
+          </a>
+          <div class="nav_list">
+
+            <span class="divider">Home</span>
+
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Dashboard" data-halaman="dashboard.html" class="nav_link">
+              <i class="bx bx-tachometer nav_icon"></i>
+              <span class="nav_name">Dashboard</span>
+
+            </a>
+            
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Dashboard" data-halaman="home.html" class="nav_link">
+              <i class="bx bx-pencil nav_icon"></i>
+              <span class="nav_name">Booking</span>
+            </a>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Booking" data-halaman="crud.html" class="nav_link">
+              <i class="bx bx-user nav_icon"></i>
+              <span class="nav_name">Users</span>
+            </a>
+            <span class="divider">Data Tamu</span>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Check In" data-halaman="checkin.html " class="nav_link">
+              <i class="bx bx-user nav_icon"></i>
+              <span class="nav_name">Check In</span>
+            </a>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Tamu" data-halaman="datatamu.html" class="nav_link">
+              <i class="bx bx-book-open nav_icon"></i>
+              <span class="nav_name">Data Tamu</span>
+            </a>
+
+            <span class="divider">Inventori</span>
+
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Data barang" data-halaman="databarang.html" class="nav_link">
+              <i class="bx bx-box nav_icon"></i>
+              <span class="nav_name">Data Barang</span>
+            </a>
+
+            <span class="divider">Laundry</span>
+
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Laundry" data-halaman="datalaundry.html" class="nav_link">
+              <i class="bx bx-closet nav_icon"></i>
+              <span class="nav_name">Laundry</span>
+            </a>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Pendapatan Laundry" data-halaman="datapendapatan.html" class="nav_link">
+              <i class="bx bx-line-chart nav_icon"></i>
+              <span class="nav_name">Pendapatan Laundry</span>
+              
+            </a>
+            <span class="divider">Dapur</span>
+
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Dashboard" data-halaman="kasir.html" class="nav_link">
+              <i class="bx bx-coffee nav_icon"></i>
+              <span class="nav_name">Order Foods</span>
+
+            </a>
+
+            <span class="divider">Karyawan</span>
+
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Karyawan" data-halaman="datakaryawan.html" class="nav_link">
+              <i class="bx bx-book nav_icon"></i>
+              <span class="nav_name">Karyawan</span>
+            </a>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Karyawan" data-halaman="tambahkaryawan.html" class="nav_link">
+              <i class="bx bx-bookmark-plus nav_icon"></i>
+              <span class="nav_name">Tambah Karyawan</span>
+            </a>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Jabatan" data-halaman="jabatan.html" class="nav_link">
+              <i class="bx bx-table nav_icon"></i>
+              <span class="nav_name">Jabatan</span>
+            </a>
+            <span class="divider">Gaji Karyawan</span>
+
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Data Gaji" data-halaman="tbgaji.html" class="nav_link">
+              <i class="bx bx-spreadsheet nav_icon"></i>
+              <span class="nav_name">Data Gaji</span>
+            </a>
+            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Gaji" data-halaman="tambahgaji.html" class="nav_link">
+              <i class="bx bx-duplicate nav_icon"></i>
+              <span class="nav_name">Tambah Gaji</span>
+            </a>
+          </div>
+        </div>
+        <a href="javascript:void(0)" data-halaman="#" class="nav_link">
+          <i class="bx bx-log-out nav_icon"></i>
+          <span class="nav_name">SignOut</span>
+        </a>
+      </nav>
+    </div>
+
+    <main id="mainkonten" class="container-fluid"></main>
+
+    <script src="./assets/main.js"></script>
+    <script src="./assets/js/app.js"></script>
+    <script src="./assets/lib/cart.js"></script>
+
+    <!-- Bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
+    <!-- Datatable -->
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/r-2.4.0/datatables.min.js"></script>
+    <!-- Sweet Alert2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <!-- Select2 -->
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
+
+    <script>
+      var toastMixin = Swal.mixin({
+    toast: true,
+    icon: 'success',
+    title: 'General Title',
+    animation: false,
+    position: 'top-right',
+    showConfirmButton: false,
+    timer: 3000,
+    timerProgressBar: true,
+    didOpen: (toast) => {
+      toast.addEventListener('mouseenter', Swal.stopTimer)
+      toast.addEventListener('mouseleave', Swal.resumeTimer)
+    }
+  });
+    </script>
+  </body>
+</html>
