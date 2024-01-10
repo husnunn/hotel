@@ -224,9 +224,9 @@
             success: function (response) {
               localStorage.removeItem("form");
               toastMixin.fire({
-    animation: true,
-    title: 'Data Berhasil Di Tambah'
-  }).then((result) => window.location.reload() )
+             animation: true,
+             title: 'Data Berhasil Di Tambah'
+            }).then((result) => window.location.reload() )
             },
           });
         });
@@ -316,7 +316,7 @@
         if(status=='Pending'){
 el=`<span class='badge bg-warning'>Pending</span>`
         }else{
-          el=`<span class='badge bg-warning'>Pending</span>`
+          el=`<span class='badge bg-primary'>Selesai</span>`
 
         }
         return el
@@ -373,7 +373,8 @@ el=`<span class='badge bg-warning'>Pending</span>`
 
       $("#tabelpelanggan").on("click", "#edit", function (event) {
         event.preventDefault();
-        var id = $("#edit").data("id");
+        var id = $(this).data("id");
+        console.log(id);
         $.ajax({
           type: "GET",
           url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/cari/id/eq/" + id,
@@ -401,8 +402,9 @@ el=`<span class='badge bg-warning'>Pending</span>`
           data: data,
           success: function (response) {
             console.log(response);
-            $("#modalPelanggan").modal("hide");
-            window.location.reload();
+            console.log(response);
+            // $("#modalPelanggan").modal("hide");
+            // window.location.reload();
           },
         });
       });

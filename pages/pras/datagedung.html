@@ -10,7 +10,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <div class="modal-body">
-        <form class="trip-form" id="myForm" action="#" method="post">
+        <form class="trip-form" id="myForm" >
           <div class="form-group">
             <div class="mb-3">
               <input type="text" class="form-control" placeholder="Name" name="nama_customer" />
@@ -173,14 +173,14 @@
 </div>
 
 <script>
-  var rowForm = document.getElementById("rowform");
-  rowForm.style.display = "none";
+//   var rowForm = document.getElementById("rowform");
+//   rowForm.style.display = "none";
 
-  function tampilformtambah() {
-    rowForm.style.display = "block";
-  }
+//   function tampilformtambah() {
+//     rowForm.style.display = "block";
+//   }
 
-  const myModal = new bootstrap.Modal(document.getElementById("modalId"), options);
+//   const myModal = new bootstrap.Modal(document.getElementById("modalId"), options);
 
     
   $("#myForm").submit(function(e) {
@@ -207,13 +207,8 @@
             data: valueOfElement,
             dataType : "JSON",
             success: function(response) {
-            Swal.fire({
-            position: "center",
-            icon: "success",
-            title: "Your work has been saved",
-            showConfirmButton: false,
-            timer: 1500
-          });
+                
+            
               
               localStorage.removeItem("form");
               
