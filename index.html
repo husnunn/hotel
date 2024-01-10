@@ -46,17 +46,42 @@
               <span class="nav_name">Dashboard</span>
             </a>
 
-            <a href="javascript:void(0)" class="nav_link" target-drop="drop1">
-              <i class="bx bx-grid nav_icon"></i>
-              <span class="nav_name">DropDown 1</span>
+            <!-- BOOKING (PIKRI) -->
+            <a href="javascript:void(0)" class="nav_link" target-drop="booking">
+              <i class="bx bx-bookmark nav_icon"></i>
+              <span class="nav_name">Booking Kamar</span>
             </a>
-            <div id="drop1" class="dropdown-menus">
-              <a href="javascript:void(0)" data-halaman="dapur.html">Tes 1</a>
-              <a href="javascript:void(0)" data-halaman="dapur.html">Tes 2</a>
-              <a href="javascript:void(0)" data-halaman="dapur.html">Tes 3</a>
+            <div id="booking" class="dropdown-menus">
+              <a href="javascript:void(0)" data-halaman="pikri/home.html">Booking Kamar</a>
+              <a href="javascript:void(0)" data-halaman="pikri/crud.html">Data Booking</a>
             </div>
-
-
+            <!-- CHECK IN (INUN) -->
+            <a href="javascript:void(0)" class="nav_link" target-drop="cico">
+              <i class="bx bx-book nav_icon"></i>
+              <span class="nav_name">Check In Check Out</span>
+            </a>
+            <div id="cico" class="dropdown-menus">
+              <a href="javascript:void(0)" data-halaman="inun/checkin.html">Check In Kamar</a>
+              <a href="javascript:void(0)" data-halaman="inun/datatamu.html">Data Tamu</a>
+            </div>
+            <!-- Inventori (COKRO) -->
+            <a href="javascript:void(0)" class="nav_link" target-drop="inventori">
+              <i class="bx bx-box nav_icon"></i>
+              <span class="nav_name">Inventori</span>
+            </a>
+            <div id="inventori" class="dropdown-menus">
+              <a href="javascript:void(0)" data-halaman="tian/databarang.html">Data Barang</a>
+            </div>
+            <!-- LAUNDRY (JEKI) -->
+            <a href="javascript:void(0)" class="nav_link" target-drop="laundry">
+              <i class="bx bx-closet nav_icon"></i>
+              <span class="nav_name">Laundry</span>
+            </a>
+            <div id="laundry" class="dropdown-menus">
+              <a href="javascript:void(0)" data-halaman="jeki/datalaundry.html">Data Laundry</a>
+              <a href="javascript:void(0)" data-halaman="jeki/datapendapatan.html">Data Pendapatan</a>
+            </div>
+            <!-- DAPUR (TAJUL) -->
             <a href="javascript:void(0)" class="nav_link" target-drop="dapur">
               <i class="bx bx-coffee nav_icon"></i>
               <span class="nav_name">Order Food</span>
@@ -65,75 +90,33 @@
               <a href="javascript:void(0)" data-halaman="tajul/kasir.html">Order</a>
               <a href="javascript:void(0)" data-halaman="tajul/dapur.html">Dapur</a>
             </div>
-
-
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Dashboard" data-halaman="home.html" class="nav_link">
-              <i class="bx bx-pencil nav_icon"></i>
-              <span class="nav_name">Booking</span>
-            </a>
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Booking" data-halaman="crud.html" class="nav_link">
+            <!-- KARYAWAN (JAZA) -->
+            <a href="javascript:void(0)" class="nav_link" target-drop="karyawan">
               <i class="bx bx-user nav_icon"></i>
-              <span class="nav_name">Users</span>
-            </a>
-            <span class="divider">Data Tamu</span>
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Check In" data-halaman="checkin.html " class="nav_link">
-              <i class="bx bx-user nav_icon"></i>
-              <span class="nav_name">Check In</span>
-            </a>
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Tamu" data-halaman="datatamu.html" class="nav_link">
-              <i class="bx bx-book-open nav_icon"></i>
-              <span class="nav_name">Data Tamu</span>
-            </a>
-
-            <span class="divider">Inventori</span>
-
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Data barang" data-halaman="databarang.html" class="nav_link">
-              <i class="bx bx-box nav_icon"></i>
-              <span class="nav_name">Data Barang</span>
-            </a>
-
-            <span class="divider">Laundry</span>
-
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Laundry" data-halaman="datalaundry.html" class="nav_link">
-              <i class="bx bx-closet nav_icon"></i>
-              <span class="nav_name">Laundry</span>
-            </a>
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Pendapatan Laundry" data-halaman="datapendapatan.html" class="nav_link">
-              <i class="bx bx-line-chart nav_icon"></i>
-              <span class="nav_name">Pendapatan Laundry</span>
-            </a>
-
-            <span class="divider">Karyawan</span>
-
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Karyawan" data-halaman="datakaryawan.html" class="nav_link">
-              <i class="bx bx-book nav_icon"></i>
               <span class="nav_name">Karyawan</span>
             </a>
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Karyawan" data-halaman="tambahkaryawan.html" class="nav_link">
-              <i class="bx bx-bookmark-plus nav_icon"></i>
-              <span class="nav_name">Tambah Karyawan</span>
+            <div id="karyawan" class="dropdown-menus">
+              <a href="javascript:void(0)" data-halaman="jaza/datakaryawan.html">Data Karyawan</a>
+              <a href="javascript:void(0)" data-halaman="jaza/tambahkaryawan.html">Tambah Karyawan</a>
+              <a href="javascript:void(0)" data-halaman="jaza/jabatan.html">Jabatan</a>
+            </div>
+            <!-- Gaji Karyawan (Jaza) -->
+            <a href="javascript:void(0)" class="nav_link" target-drop="gajik">
+              <i class="bx bx-money nav_icon"></i>
+              <span class="nav_name">Gaji Karyawan</span>
             </a>
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Jabatan" data-halaman="jabatan.html" class="nav_link">
-              <i class="bx bx-table nav_icon"></i>
-              <span class="nav_name">Jabatan</span>
+            <div id="gajik" class="dropdown-menus">
+              <a href="javascript:void(0)" data-halaman="jaza/tbgaji.html">Data Gaji</a>
+              <a href="javascript:void(0)" data-halaman="jaza/tambahgaji.html">Tambah Gaji</a>
+            </div>
+            <!-- SEWA MOBIL (RIBEK) -->
+            <a href="javascript:void(0)" class="nav_link" target-drop="sewamobil">
+              <i class="bx bx-car nav_icon"></i>
+              <span class="nav_name">Sewa Mobil Dan Motor</span>
             </a>
-            <span class="divider">Gaji Karyawan</span>
-
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Data Gaji" data-halaman="tbgaji.html" class="nav_link">
-              <i class="bx bx-spreadsheet nav_icon"></i>
-              <span class="nav_name">Data Gaji</span>
-            </a>
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Tambah Gaji" data-halaman="tambahgaji.html" class="nav_link">
-              <i class="bx bx-duplicate nav_icon"></i>
-              <span class="nav_name">Tambah Gaji</span>
-            </a>
-
-            <span class="divider">Sewa Mobil Dan Motor</span>
-
-            <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-placement="top" title="Sewa Mobil" data-halaman="sewamobil.html" class="nav_link">
-              <i class="bx bx-spreadsheet nav_icon"></i>
-              <span class="nav_name">Data Mobil</span>
-            </a>
+            <div id="sewamobil" class="dropdown-menus">
+              <a href="javascript:void(0)" data-halaman="ribek/sewamobil.html">Sewa Kendaraan</a>
+            </div>
           </div>
         </div>
         <a href="javascript:void(0)" data-halaman="#" class="nav_link">
