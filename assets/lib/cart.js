@@ -7,6 +7,7 @@
 
 /* '(function(){})();' this function is used, to make all variables of the plugin Private */
 var nominal;
+var id;
 $("#anama").on("change", function () {
   
   var nama = $("#anama").val()
@@ -18,6 +19,7 @@ $("#anama").on("change", function () {
       console.log(response);
       $.each(response.data, function (indexInArray, valueOfElement) { 
           nominal = valueOfElement.nominal;
+          id = valueOfElement.id_voucher
           $("#test").append(`<label for="" class="form-label"><b>Kode Voucher</b></label>
           <select class="form-select form-select-lg" name="" id="">
             <option value="">${valueOfElement.kode_voucher}</option>
@@ -203,15 +205,7 @@ $("#anama").on("change", function () {
     },
     _saveCart: function () {
       localStorage.setItem("shoppingCart", JSON.stringify(this.cart));
-      $.ajax({
-        type: "PUT",
-        url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/voucher",
-        data: "data",
-        dataType: {id_voucher},
-        success: function (response) {
-            
-        }
-      });
+     
     },
     _loadCart: function () {
       // this.cart = JSON.parse(localStorage.getItem("shoppingCart"));
