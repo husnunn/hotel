@@ -1,7 +1,7 @@
-<br>
-<br>
-<br>
-<br>
+<br />
+<br />
+<br />
+<br />
 <div class="row" id="kamar"></div>
 
 <!-- Modal Tambah -->
@@ -37,6 +37,7 @@
               </select>
             </div>
           </div>
+          <input type="hidden" name="kode" id="kode" />
           <div class="modal-footer">
             <button onclick="tambahTamu()" type="button" class="btn btn-primary" id="btnSimpan">Check in</button>
             <button type="button" class="btn btn-secondary" onclick="kosongForm()">Reset</button>
@@ -48,12 +49,24 @@
 </div>
 
 <script>
+  var kode = "";
+  function generateRandomString(length) {
+    const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+    const charactersLength = characters.length;
+
+    for (let i = 0; i < length; i++) {
+      kode += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+
+    return kode;
+  }
+
   $.ajax({
     type: "GET",
     url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/kamar",
     dataType: "json",
     success: function (response) {
-      console.log(response.data);
+      //   console.log(response.data);
       switch (response.data) {
         case "data kosong":
           $("#kamar").append(` <div class="col-md-4">
@@ -70,7 +83,8 @@
           break;
       }
       $.each(response.data, function (indexInArray, valueOfElement) {
-        console.log(valueOfElement);
+        // console.log(valueOfElement.tipe_kamar);
+
         $("#kamar").append(`   <div class="col-md-4">
             <div class="card">
               <img
@@ -92,6 +106,8 @@
                   data-bs-target="#modaltambah"
                   data-no_kamar='${valueOfElement.nomor_kamar}'
                   id='pesan'
+                  data-tipe='${valueOfElement.tipe_kamar}'
+                  
                 >
                   Pesan
                 </button>
@@ -106,6 +122,10 @@
   $("#kamar").on("click", "#pesan", function () {
     var no_kamar = $(this).data("no_kamar");
     $("#no_kamar").val(no_kamar);
+    if ($(this).data("tipe") === "Exlusive") {
+      generateRandomString(10);
+    }
+    $("#kode").val(kode);
   });
 
   function tambahTamu() {
@@ -117,14 +137,40 @@
     var no_kamar = $("#no_kamar").val();
     if (navigator.onLine) {
       $.each(data, function (indexInArray, valueOfElement) {
+        var currentDate = new Date(); // Mendapatkan tanggal saat ini
+        currentDate.setDate(currentDate.getDate() + 3);
+        var kode = $("#kode").val();
+
+        var test = {  kode_voucher: kode, nominal: "200000", terpakai: "0", masa_berlaku: currentDate.toISOString().slice(0, 10) };
+        if (kode != "") {
+          console.log("test");
+          $.ajax({
+            type: "POST",
+            url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/tb_voucher",
+            data: test,
+            dataType: "json",
+            success: function (response) {
+              console.log(response);
+              $.ajax({
+                type: "POST",
+                url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/user_voucher",
+                data: {  id_vc: kode, kode_tamu: kode },
+                dataType: "json",
+                success: function (response) {
+                  console.log(response);
+                },
+              });
+            },
+          });
+        }
         $.ajax({
           type: "POST",
           url: "https://tugasapi.informatikaunwaha.com/husnun/api/api.php/input",
           dataType: "JSON", // Ganti dengan URL tempat Anda menyimpan fungsi PHP untuk menangani data
           data: valueOfElement,
           success: function (response) {
-            
-
+            console.log(valueOfElement);
+            console.log(response);
             localStorage.removeItem("form");
             $.ajax({
               type: "PUT",
@@ -137,19 +183,23 @@
               dataType: "json",
               success: function (response) {
                 console.log(response);
-                toastMixin.fire({
-    animation: true,
-    title: 'Data Berhasil Di Tambah'
-  })
+
+                toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Tambah",
+                  })
+                  .then((result) => window.location.reload());
               },
             });
           },
           error: function (error) {
-            console.log(error);
-            toastMixin.fire({
-    title: 'Gagal Di Tambah',
-    icon: 'error'
-  }).then((result) => window.location.reload() )
+            toastMixin
+              .fire({
+                title: "Gagal Di Tambah",
+                icon: "error",
+              })
+              .then((result) => window.location.reload());
           },
         });
       });
@@ -169,5 +219,4 @@
     $("#noKamar").val("");
     $("#pembayaran").val("");
   }
-
 </script>
