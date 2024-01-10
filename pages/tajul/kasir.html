@@ -132,27 +132,7 @@
   </div>
 </div>
 <script>
-  
-  $("#anama").on("change", function () {
-    
-    var nama = $("#anama").val()
-     $.ajax({
-      type: "GET",
-      url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/voucher/"+nama,
-      dataType: "json",
-      success: function (response) {
-        console.log(response);
-        $.each(response.data, function (indexInArray, valueOfElement) { 
-            $("#test").append(`<label for="" class="form-label"><b>Kode Voucher</b></label>
-            <select class="form-select form-select-lg" name="" id="">
-              <option value="">${valueOfElement.kode_voucher}</option>
-              
-            </select>`);
-            $("#test2").append(`<div class="mb-2"><b>Nominal  <select class="form-select form-select-lg mt-2" disabled  name="" id="">
-              <option value="">${valueOfElement.nominal}</option></b></div>`)
-        });
-      },
-    });
-  });
+ 
 </script>
 <script src="assets/lib/data-menu.js"></script>
+<script src="assets/lib/cart.js"></script>

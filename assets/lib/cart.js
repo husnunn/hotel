@@ -6,7 +6,29 @@
  */
 
 /* '(function(){})();' this function is used, to make all variables of the plugin Private */
-
+var nominal;
+$("#anama").on("change", function () {
+  
+  var nama = $("#anama").val()
+   $.ajax({
+    type: "GET",
+    url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/voucher/"+nama,
+    dataType: "json",
+    success: function (response) {
+      console.log(response);
+      $.each(response.data, function (indexInArray, valueOfElement) { 
+          nominal = valueOfElement.nominal;
+          $("#test").append(`<label for="" class="form-label"><b>Kode Voucher</b></label>
+          <select class="form-select form-select-lg" name="" id="">
+            <option value="">${valueOfElement.kode_voucher}</option>
+            
+          </select>`);
+          $("#test2").append(`<div class="mb-2"><b>Nominal  <select class="form-select form-select-lg mt-2" disabled  name="" id="">
+            <option value="">${valueOfElement.nominal}</option></b></div>`)
+      });
+    },
+  });
+});
 (function ($, window, document, undefined) {
   /* Default Options */
   var defaults = {
@@ -151,7 +173,13 @@
     _totalCartCost: function () {
       var totalCost = 0;
       for (var i in this.cart) {
-        totalCost += this.cart[i].price;
+        
+        if (this.cart[i].price >= nominal) {
+            totalCost += this.cart[i].price - nominal;
+        }
+        else{
+            totalCost += this.cart[i].price
+        }
       }
       return totalCost;
     },
@@ -175,6 +203,15 @@
     },
     _saveCart: function () {
       localStorage.setItem("shoppingCart", JSON.stringify(this.cart));
+      $.ajax({
+        type: "PUT",
+        url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/voucher",
+        data: "data",
+        dataType: {id_voucher},
+        success: function (response) {
+            
+        }
+      });
     },
     _loadCart: function () {
       // this.cart = JSON.parse(localStorage.getItem("shoppingCart"));
