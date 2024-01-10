@@ -127,6 +127,12 @@
           data: valueOfElement,
           dataType: "JSON",
           success: function (response) {
+            toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Tambah",
+                  })
+                  .then((result) => window.location.reload());
             $.ajax({
               type: "PUT",
               url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/ketersediaan",
@@ -138,12 +144,12 @@
             });
             localStorage.removeItem("form");
             console.log(response);
-            swal.fire({
-              position: "center",
-              icon: "success",
-              title: "Your work has been saved",
-              showConfirmButton: true,
-            });
+            toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Tambah",
+                  })
+                  .then((result) => window.location.reload());
           },
         });
       });

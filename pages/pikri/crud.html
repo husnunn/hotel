@@ -425,7 +425,12 @@
               data: { id: email, kolom: "email" },
               dataType: "json",
               success: function (response) {
-                console.log(response);
+                toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Checkin",
+                  })
+                  .then((result) => window.location.reload());
               },
             });
           },
