@@ -24,8 +24,7 @@ $(".nav_link").on("click", function () {
     console.log();
     $(".dropdown-menus").removeClass("open");
 
-
-    $("#" +  $(this).attr("target-drop")).toggleClass("open");
+    $("#" + $(this).attr("target-drop")).toggleClass("open");
   }
 });
 
