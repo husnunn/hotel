@@ -214,8 +214,8 @@ a {
 }
 
 .dropdown-menus {
-  display: grid;
-  grid-template-columns: auto;
+  display: flex;
+  flex-direction: column;
   height: 0px;
   overflow: hidden;
   transition: 0.3s;
