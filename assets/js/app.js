@@ -13,11 +13,27 @@ $(document).ready(function () {
 });
 
 
-$('.nav_link').on('click',function(){
-    var currentPageLink=$(this).attr('data-halaman')
-    localStorage.setItem('pages',currentPageLink)
-    load_halaman(currentPageLink)
-})
+$(".nav_link").on("click", function () {
+  if (!$(this).attr("target-drop")) {
+    var currentPageLink = $(this).attr("data-halaman");
+    localStorage.setItem("pages", currentPageLink);
+    load_halaman(currentPageLink);
+    $(".dropdown-menus").removeClass("open");
+
+  } else {
+    console.log();
+    $(".dropdown-menus").removeClass("open");
+
+
+    $("#" +  $(this).attr("target-drop")).toggleClass("open");
+  }
+});
+
+$(".dropdown-menus a").on("click", function () {
+  var currentPageLink = $(this).attr("data-halaman");
+  localStorage.setItem("pages", currentPageLink);
+  load_halaman(currentPageLink);
+});
 
 function load_halaman(halamanApa) { 
     $('#mainkonten').hide()
