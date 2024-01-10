@@ -1,3 +1,7 @@
+ <br>
+ <br>
+ <br>
+ <div class="row" id="list-pesanan"></div>
  <script>
       function load_dapur() {
         var gg = [];
@@ -32,7 +36,7 @@
                 </div>
               <div class='card-body p-1'>
 
-              <ul class='list-group list-group-flush rounded-0 border-0' id='unique_${uniqueCode}'>`;
+              <ul style='max-height:300px;overflow-y:auto' class='list-group list-group-flush rounded-0 border-0' id='unique_${uniqueCode}'>`;
 
               $.each(dataInvoice, function (index, order) {
                 if (order.order_kode === uniqueCode) {
