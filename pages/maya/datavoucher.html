@@ -1,0 +1,306 @@
+<!doctype html> 
+<html lang="en"> 
+ 
+<head> 
+ <meta charset="utf-8"> 
+ <meta name="viewport" content="width=device-width, initial-scale=1"> 
+ 
+ <title>Blank</title> 
+ 
+ <!-- Bootstrap --> 
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD" crossorigin="anonymous"> 
+ <!-- Bootstrap Icon - short-cut(bina-bsicon) --> 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.3/font/bootstrap-icons.css"> 
+
+ <!-- Datatable --> 
+ <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs5/dt-1.13.1/r-2.4.0/datatables.min.css" /> 
+ <!-- Select2 --> 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" /> 
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" /> 
+ <!-- JQUERY --> 
+ <script src="https://code.jquery.com/jquery-3.6.3.min.js" integrity="sha256-pvPw+upLPUjgMXY0G+8O0xUf+/Im1MZjXxxgOcBQBXU=" crossorigin="anonymous"></script> 
+
+ <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+</head> 
+ 
+<body> 
+ 
+    <div class="m-5">
+  <div class="row mt-5">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-head-row">
+            <div class="card-title">Data Member</div>
+            <div class="card-tools">
+              <button type="button" class="btn btn-primary" onclick="ambildatatamu()">Refresh Data</button>
+            </div>
+          </div>
+        </div>
+        <div class="card-body">
+          <div class="table-responsive">
+            <table id="tbl-api" class="display table table-striped table-hover">
+              <thead>
+                <tr>
+                  <th style="width: 20%">Nama Tamu</th>
+                  <th style="width: 20%">Kode Voucher</th>
+                  <th style="width: 20%">Nominal</th>
+                  <th style="width: 10%">Masa Berlaku</th>
+                  <th style="width: 20%">Terpakai</th>
+                </tr>
+              </thead>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal Edit -->
+<div class="modal fade" role="dialog" id="modaledit">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" style="font-size: 20px">Edit member </h5>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body">
+             <form action="" method="post" id="formEdit">
+                <input type="hidden" id="id_voucher" name="id_voucher"/>
+
+          <div class="row">
+            <div class="form-group col-6"><label>Kode Voucher</label><input type="text" class="form-control" id="kode_voucher" name="kode_voucher" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>nominal</label><input type="text" class="form-control" id="nominal" name="nominal" style="font-size: 20px" /></div>
+            <div class="form-group col-6"><label>Masa berlaku</label><input type="date" class="form-control" id="masa_berlaku" name="masa_berlaku" style="font-size: 20px" /></div>            
+            <div class="form-group col-6"><label>terpakai</label><input type="text" class="form-control" id="terpakai" name="terpakai" style="font-size: 20px" /></div>
+          </div>
+
+          <div class="modal-footer">
+            <button  type="submit" class="btn btn-primary" id="updateTamu">Simpan</button>
+            <button type="button" class="btn btn-secondary" onclick="kosongForm()">Reset</button>
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<script>
+  $(document).ready(function () {
+    ambildatatamu(); // Memuat data pertama kali
+    $("#tbl-api").DataTable(); // Inisialisasi DataTable
+  });
+</script>
+
+<script>
+  
+
+  ambildatatamu();
+  function tambahTamu() {
+    // // Mendapatkan nilai dari input form
+    // var nikTamu = $("#nikTamu").val();
+    // var namaTamu = $("#namaTamu").val();
+    // var tglCi = $("#tglCi").val();
+    // var jamCi = $("#jamCi").val();
+    // var tglCo = $("#tglCo").val();
+    // var jamCo = $("#jamCo").val();
+    // var jmlHari = $("#jmlHari").val();
+    // var noKamar = $("#noKamar").val();
+    // var pembayaran = $("#pembayaran").val();
+
+    // // Validasi data, Anda bisa menambahkan validasi sesuai kebutuhan
+    // if (nikTamu === "" || namaTamu === "" || tglCi === "" || jamCi === "" || tglCo === "" || jamCo === "" || jmlHari === "" || noKamar === "" || pembayaran === "") {
+    //   swal({
+    //     title: "Gagal",
+    //     text: "Ada Isian Yang Masih Kosong",
+    //     icon: "error",
+    //   });
+    //   return;
+    // }
+    var form =
+            $("#maya").serializeArray();
+
+          var data =
+            JSON.parse(
+              localStorage.getItem("form")
+            ) || [];
+          data.push(form);
+          localStorage.setItem(
+            "form",
+            JSON.stringify(data)
+          );
+if(navigator.onLine){
+    // Kirim data ke server menggunakan AJAX
+    $.each(data, function (indexInArray, valueOfElement) { 
+       
+    
+    $.ajax({
+      type: "POST",
+      url: "https://tugasapi.informatikaunwaha.com/maya/api.php/input",
+      dataType: "JSON", // Ganti dengan URL tempat Anda menyimpan fungsi PHP untuk menangani data
+      data: valueOfElement,
+      success: function (response) {
+        localStorage.removeItem("form")
+        // swal({
+        //   title: "Berhasil",
+        //   text: "Data Berhasil Ditambahkan",
+        //   icon: "success",
+        // });
+        console.log(response);
+        // Reset form setelah selesai
+        kosongForm();
+      },
+      error: function (error) {
+        console.log("Error: ", error.responseText);
+        swal({
+          title: "Gagal",
+          text: "Terjadi Kesalahan Harap Coba Lagi",
+          icon: "error",
+        });
+      },
+    });
+    });
+}
+  }
+
+
+
+  function ambildatatamu() {
+    $.ajax({
+      type: "GET",
+      url: "https://tugasapi.informatikaunwaha.com/maya/api.php/join",
+      dataType: "JSON",
+      success: function (data) {
+        // Menghapus semua baris pada tabel
+        // console.log(data);
+
+        $("#tbl-api").DataTable().clear().draw();
+
+        // Mengisi tabel dengan data yang diterima dari server
+        $.each(data.data, function (index, item) {
+          var row = `<tr>
+                      <td>${item.namaTamu}</td>
+                      <td>${item.kode_voucher}</td>
+                      <td>${item.nominal}</td>
+                      <td>${item.masa_berlaku}</td>
+                      <td>${item.terpakai}</td>
+                      <td>
+                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit" onclick='test()' id="tampilFormEdit" data-id="${item.id_voucher}">Edit</button>
+                        <button type="button" class="btn btn-danger" id="hapusTamu" data-id="${item.id_voucher}">Hapus</button>
+                      </td>
+                    </tr>`;
+          $("#tbl-api").DataTable().row.add($(row)).draw();
+        });
+      },
+      error: function (error) {
+        console.log("Error: ", error);
+        alert("Terjadi kesalahan saat mengambil data. Silakan coba lagi.");
+      },
+    });
+  }
+
+
+  // Fungsi untuk menampilkan data pada form edit
+    // Lakukan request AJAX untuk mendapatkan data tamu berdasarkan ID
+    // Setelah mendapatkan data, isi form edit dengan data tersebut
+    function test() {
+        var id = $(event.currentTarget).data('id');
+    $.ajax({
+      type: "GET",
+      url: "https://tugasapi.informatikaunwaha.com/maya/api.php/cari/id_voucher/eq/"+id,
+      dataType: "JSON",
+      data: { id: $(this).data("id") },
+      success: function (data) {
+        // console.log(data);
+
+        $.each(data.data, function (index, element) {
+          $("#modaledit #id_voucher").val(element.id_voucher);
+          $("#modaledit #kode_voucher").val(element.kode_voucher);
+          $("#modaledit #nominal").val(element.nominal);
+          $("#modaledit #masa_berlaku").val(element.masa_berlaku);
+          $("#modaledit #terpakai").val(element.terpakai);
+        });
+      },
+      error: function (error) {
+        console.log("Error: ", error);
+        alert("Terjadi kesalahan saat mengambil data. Silakan coba lagi.");
+      },
+    });
+    }
+       
+    
+
+  // HAPUSSS MEMBER         
+  $("#tbl-api").on("click","#hapusTamu",function(){
+    id = $(this).data('id');
+    console.log(id);
+    $.ajax({
+        type: "DELETE",
+        url: "https://informatikaunwaha.com/tugasapi.informatikaunwaha.com/maya/api.php",
+        data: { id_voucher:id },
+        dataType: "JSON",
+        success: function (response) {
+        //   swal({
+        //     title: "Berhasil",
+        //     text: "Data Berhasil Dihapus",
+        //     icon: "success",
+        //   });
+        console.log(response);
+        },
+        error: function (error) {
+          swal({
+            title: "Gagal",
+            text: "Terjadi Kesalahan Harap Coba Lagi",
+            icon: "error",
+          });
+        }
+      });
+  })
+  // UPDATE TAMU
+    $("#formEdit").on("submit", function(event){
+      event.preventDefault();
+      var data = $("#formEdit").serialize();
+    console.log(data);
+    $.ajax({
+      type: "PUT",
+      url: "https://tugasapi.informatikaunwaha.com/maya/api.php",
+      contentType: "application/x-www-urlencoded",
+      data: data,
+      success: function (response) {
+        swal({
+          title: "Berhasil",
+          text: "Data Berhasil Ditambahkan",
+          icon: "success",
+        });
+        console.log(response.messege);
+      },
+      error: function (error) {
+        console.log("Error: ", error);
+        alert("Terjadi kesalahan. Silakan coba lagi.");
+      },
+    });
+  })
+  
+</script>
+ 
+
+ 
+ 
+ 
+ <!-- Bootstrap --> 
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script> 
+ <!-- Datatable --> 
+ <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.13.1/r-2.4.0/datatables.min.js"></script> 
+ <!-- Sweet Alert2 --> 
+ <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> 
+ <!-- Select2 --> 
+ <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script> 
+ 
+ <!-- <script> 
+ $$('#select-field').select2({ 
+ theme: 'bootstrap-5' 
+ }); 
+ </script> --> 
+</body> 
+ 
+</html>
