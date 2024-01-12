@@ -127,7 +127,6 @@
           data: valueOfElement,
           dataType: "JSON",
           success: function (response) {
-            
             $.ajax({
               type: "PUT",
               url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/ketersediaan",
@@ -135,6 +134,12 @@
               dataType: "json",
               success: function (response) {
                 console.log(response);
+                toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Tambah",
+                  })
+                  .then((result) => window.location.reload());
               },
             });
             localStorage.removeItem("form");

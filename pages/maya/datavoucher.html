@@ -7,24 +7,26 @@
         <div class="card-header">
           <div class="card-head-row">
             <div class="card-title">Data Member</div>
-            <div class="card-tools">
-              <button type="button" class="btn btn-primary" onclick="ambildatatamu()">Refresh Data</button>
-            </div>
+       
           </div>
         </div>
         <div class="card-body">
           <div>
-            <table id="tbl-api" class="display table table-striped table-hover">
-              <thead>
-                <tr>
-                  <th >Nama Tamu</th>
-                  <th >Kode Voucher</th>
-                  <th >Nominal</th>
-                  <th >Masa Berlaku</th>
-                  <th >Terpakai</th>
-                  <th >Opsi</th>
-                </tr>
-              </thead>
+            <table id="tbl-voucher" class="display table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Nama Tamu</th>
+                        <th>Kode Voucher</th>
+                        <th>Nominal</th>
+                        <th>Masa Berlaku</th>
+                        <th>Terpakai</th>
+                        <th>Opsi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    
+                </tbody>
             </table>
           </div>
         </div>
@@ -51,7 +53,17 @@
             <div class="form-group col-6"><label>Kode Voucher</label><input type="text" class="form-control" id="kode_voucher" name="kode_voucher" style="font-size: 20px" /></div>
             <div class="form-group col-6"><label>nominal</label><input type="text" class="form-control" id="nominal" name="nominal" style="font-size: 20px" /></div>
             <div class="form-group col-6"><label>Masa berlaku</label><input type="date" class="form-control" id="masa_berlaku" name="masa_berlaku" style="font-size: 20px" /></div>            
-            <div class="form-group col-6"><label>terpakai</label><input type="text" class="form-control" id="terpakai" name="terpakai" style="font-size: 20px" /></div>
+            <div class="mb-3">
+                <select
+                    class="form-select form-select-lg"
+                    name="terpakai"
+                    id="terpakai"
+                >
+                    <option value="1">Terpakai</option>
+                    <option value="0">Belum terpakai</option>
+                </select>
+            </div>
+            
           </div>
 
           <div class="modal-footer">
@@ -64,13 +76,13 @@
 </div>
 
 <script>
-ambildatatamu();
-let table = new DataTable('#tblvoucher', {
-    responsive: true
-});
+// ambildatatamu();
+// let table = new DataTable('#tbl-voucher', {
+//     responsive: true
+// });
   
 
-  ambildatatamu();
+  
   function tambahTamu() {
     var form =
             $("#maya").serializeArray();
@@ -116,34 +128,33 @@ if(navigator.onLine){
     });
 }
   }
-
-
-
-  function ambildatatamu() {
+  $(document).ready(function () {
     $.ajax({
       type: "GET",
-      url: "https://tugasapi.informatikaunwaha.com/maya/api.php/join",
+      url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/tvc",
       dataType: "JSON",
       success: function (data) {
-        // Menghapus semua baris pada tabel
-        // console.log(data);
-
-        $("#tblvoucher").DataTable().clear().draw();
-
-        // Mengisi tabel dengan data yang diterima dari server
+        console.log(data);
         $.each(data.data, function (index, item) {
-          var row = `<tr>
-                      <td>${item.namaTamu}</td>
-                      <td>${item.kode_voucher}</td>
-                      <td>${item.nominal}</td>
-                      <td>${item.masa_berlaku}</td>
-                      <td>${item.terpakai}</td>
-                      <td>
-                        <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit" onclick='test()' id="tampilFormEdit" data-id="${item.id_voucher}">Edit</button>
-                        <button type="button" class="btn btn-danger" id="hapusTamu" data-id="${item.id_voucher}">Hapus</button>
-                      </td>
-                    </tr>`;
-          $("#tblvoucher").DataTable().row.add($(row)).draw();
+            if (item.terpakai == '1') { 
+        item.terpakai = "terpakai";
+    } else {
+        item.terpakai = "belum terpakai";
+    }
+    $("#tbl-voucher tbody").append(`<tr>
+        <td>${index +1}</td>
+        <td>${item.namaTamu}</td>
+        <td>${item.kode_voucher}</td>
+        <td>${item.nominal}</td>
+        <td>${item.masa_berlaku}</td>
+        <td>${item.terpakai}</td>
+        <td>
+            <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit" onclick='test()' id="tampilFormEdit" data-id="${item.id_voucher}">Edit</button>
+            <button type="button" class="btn btn-danger" id="hapusTamu" data-id="${item.id_voucher}">Hapus</button>
+        </td>
+    </tr>`);
+    // $("#tbl-voucher").DataTable().clear().draw();
+     // $("#tbl-voucher").DataTable().row.add($(row)).draw();
         });
       },
       error: function (error) {
@@ -151,7 +162,9 @@ if(navigator.onLine){
         alert("Terjadi kesalahan saat mengambil data. Silakan coba lagi.");
       },
     });
-  }
+  });
+    
+  
 
 
   // Fungsi untuk menampilkan data pada form edit
@@ -168,6 +181,11 @@ if(navigator.onLine){
         // console.log(data);
 
         $.each(data.data, function (index, element) {
+    //         if (element.terpakai == '1') { 
+    //     element.terpakai = "terpakai";
+    // } else {
+    //     element.terpakai = "belum terpakai";
+    // }
           $("#modaledit #id_voucher").val(element.id_voucher);
           $("#modaledit #kode_voucher").val(element.kode_voucher);
           $("#modaledit #nominal").val(element.nominal);
@@ -185,7 +203,7 @@ if(navigator.onLine){
     
 
   // HAPUSSS MEMBER         
-  $("#tblvoucher").on("click","#hapusTamu",function(){
+  $("#tbl-voucher").on("click","#hapusTamu",function(){
     id = $(this).data('id');
     console.log(id);
     $.ajax({
@@ -214,8 +232,7 @@ if(navigator.onLine){
   // UPDATE TAMU
     $("#formEdit").on("submit", function(event){
       event.preventDefault();
-      var data = $("#formEdit").serialize();
-    console.log(data);
+      var data = $("#formEdit").serialize()
     $.ajax({
       type: "PUT",
       url: "https://tugasapi.informatikaunwaha.com/maya/api.php",

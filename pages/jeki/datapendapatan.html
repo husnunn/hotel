@@ -58,45 +58,8 @@
  
 
  <script>
-    // Script untuk menghitung total harga
-    document.addEventListener(
-      "DOMContentLoaded",
-      function () {
-        const table =
-          document.getElementById(
-            "pendapatanTable"
-          );
-        const rows = table
-          .getElementsByTagName("tbody")[0]
-          .getElementsByTagName("tr");
-        let total = 0;
-
-        for (
-          let i = 0;
-          i < rows.length;
-          i++
-        ) {
-          const row = rows[i];
-          const hargaCell = row.cells[3];
-          const hargaText =
-            hargaCell.textContent;
-          const harga = parseInt(
-            hargaText
-              .replace("Rp ", "")
-              .replace(",", "")
-          );
-          total += harga;
-        }
-
-        const totalHargaCell =
-          document.getElementById(
-            "totalHarga"
-          );
-        totalHargaCell.textContent =
-          "Rp " + total.toLocaleString();
-      }
-    );
-
+ 
+var total_harga = 0;
     $.ajax({
         type: "GET",
         url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/join",
@@ -114,6 +77,8 @@
               indexInArray,
               valueOfElement
             ) {
+                var harga = parseInt(valueOfElement.total_harga)
+                console.log(total_harga += harga );
               $("#pendapatanTable tbody")
                 .append(` <tr>
                           <td>${
@@ -126,13 +91,14 @@
                             valueOfElement.tanggal
                           }</td>
                           <td>Rp ${
-                            valueOfElement.harga
+                            valueOfElement.total_harga
                           }</td>
                          
                         
                         </tr>`);
             }
-          );
+          )
+          $("#totalHarga").text("Rp " + total_harga + ",000");
           $(function () {
             $("#tabelpelanggan").DataTable({
               paging: true,

@@ -1,487 +1,487 @@
 
-<br>
-<br>
-<br>
-<div class="mx-auto p-3">
-  <table class="table" id="tabelku">
-    <thead class="table-dark">
-      <tr>
-        <th>No</th>
-        <th>Guest Name</th>
-        <th>Email</th>
-        <th>Check-in Date</th>
-        <th>Check-out Date</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody></tbody>
-  </table>
-</div>
-</div>
-<!-- Edit Modal -->
-<div
-class="modal fade"
-id="editModal"
-tabindex="-1"
-aria-labelledby="editModalLabel"
-aria-hidden="true"
->
-<div class="modal-dialog">
-  <div class="modal-content">
-    <!-- Add your edit modal content here -->
-    <div class="modal-header">
-      <h5
-        class="modal-title"
-        id="editModalLabel"
-      >
-        Edit Guest
-      </h5>
-      <button
-        type="button"
-        class="btn-close"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-      ></button>
+      <br>
+      <br>
+      <br>
+      <div class="mx-auto p-3">
+        <table class="table" border id="tabelku">
+          <thead class="table-dark">
+            <tr>
+              <th>No</th>
+              <th>Guest Name</th>
+              <th>Email</th>
+              <th>Check-in Date</th>
+              <th>Check-out Date</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
     </div>
-    <div class="modal-body">
-      <form id="form-input">
-        <input
-          type="hidden"
-          id="id"
-          name="id_booking"
-        />
-        <div class="form-group">
-          <label for="name"
-            >Name <span>*</span></label
-          >
-          <input
-            type="text"
-            class="form-control"
-            id="name"
-            placeholder="Your Name"
-            name="name"
-          />
+    <!-- Edit Modal -->
+    <div
+      class="modal fade"
+      id="editModal"
+      tabindex="-1"
+      aria-labelledby="editModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <!-- Add your edit modal content here -->
+          <div class="modal-header">
+            <h5
+              class="modal-title"
+              id="editModalLabel"
+            >
+              Edit Guest
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <form id="form-input">
+              <input
+                type="hidden"
+                id="id"
+                name="id_booking"
+              />
+              <div class="form-group">
+                <label for="name"
+                  >Name <span>*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="name"
+                  placeholder="Your Name"
+                  name="name"
+                />
+              </div>
+              <div class="form-group">
+                <label for="email"
+                  >Email <span>*</span></label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  id="email"
+                  placeholder="Your Email"
+                  name="email"
+                />
+              </div>
+              <div class="form-group">
+                <label for="check-in"
+                  >Check In <span>*</span></label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="check-in"
+                  name="checkin"
+                />
+              </div>
+              <div class="form-group">
+                <label for="check-out"
+                  >Check Out <span>*</span></label
+                >
+                <input
+                  type="date"
+                  class="form-control"
+                  id="check-out"
+                  name="checkout"
+                />
+              </div>
+              <button
+                type="submit"
+                id="submit"
+                hidden="1"
+              ></button>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              onclick="$('#submit').click()"
+            >
+              Save changes
+            </button>
+          </div>
         </div>
-        <div class="form-group">
-          <label for="email"
-            >Email <span>*</span></label
-          >
-          <input
-            type="text"
-            class="form-control"
-            id="email"
-            placeholder="Your Email"
-            name="email"
-          />
-        </div>
-        <div class="form-group">
-          <label for="check-in"
-            >Check In <span>*</span></label
-          >
-          <input
-            type="date"
-            class="form-control"
-            id="check-in"
-            name="checkin"
-          />
-        </div>
-        <div class="form-group">
-          <label for="check-out"
-            >Check Out <span>*</span></label
-          >
-          <input
-            type="date"
-            class="form-control"
-            id="check-out"
-            name="checkout"
-          />
-        </div>
-        <button
-          type="submit"
-          id="submit"
-          hidden="1"
-        ></button>
-      </form>
+      </div>
     </div>
-    <div class="modal-footer">
-      <button
-        type="button"
-        class="btn btn-secondary"
-        data-bs-dismiss="modal"
-      >
-        Close
-      </button>
-      <button
-        type="button"
-        class="btn btn-primary"
-        onclick="$('#submit').click()"
-      >
-        Save changes
-      </button>
-    </div>
-  </div>
-</div>
-</div>
 
-<!-- Check in Modal -->
-<!-- Modal Tambah -->
-<div
-class="modal fade"
-role="dialog"
-id="modalcheckin"
->
-<div
-  class="modal-dialog modal-lg"
-  role="document"
->
-  <div class="modal-content">
-    <div class="modal-header">
-      <h5
-        class="modal-title"
-        style="font-size: 20px"
+    <!-- Check in Modal -->
+    <!-- Modal Tambah -->
+    <div
+      class="modal fade"
+      role="dialog"
+      id="modalcheckin"
+    >
+      <div
+        class="modal-dialog modal-lg"
+        role="document"
       >
-        Tambah Tamu
-      </h5>
-      <button
-        type="button"
-        class="close"
-        data-bs-dismiss="modal"
-        aria-label="Close"
-      >
-        <span aria-hidden="true"
-          >&times;</span
-        >
-      </button>
-    </div>
-    <div class="modal-body">
-      <form
-        action=""
-        method="post"
-        id="formTambahtamu"
-      >
-        <div class="row">
-          <div class="form-group col-6">
-            <label>Nama Tamu</label
-            ><input
-              type="text"
-              class="form-control"
-              id="namaTamu"
-              name="namaTamu"
-              style="font-size: 20px"
-            />
-          </div>
-          <div class="form-group col-6">
-            <label>NIK Tamu</label
-            ><input
-              type="text"
-              class="form-control"
-              id="nikTamu"
-              name="nikTamu"
-              style="font-size: 20px"
-            />
-          </div>
-          <div class="form-group col-6">
-            <label>Email Tamu</label
-            ><input
-              type="email"
-              class="form-control"
-              id="email_ci"
-              name="email"
-              style="font-size: 20px"
-            />
-          </div>
-          <div class="form-group col-6">
-            <label>Tanggal Check In</label
-            ><input
-              type="date"
-              class="form-control"
-              id="tglCi"
-              name="tglCi"
-              style="font-size: 20px"
-            />
-          </div>
-          <div class="form-group col-6">
-            <label>Jam Check In</label
-            ><input
-              type="time"
-              class="form-control"
-              id="jamCi"
-              name="jamCi"
-              style="font-size: 20px"
-            />
-          </div>
-          <div class="form-group col-6">
-            <label>Tanggal Check Out</label
-            ><input
-              type="date"
-              class="form-control"
-              id="tglCo"
-              name="tglCo"
-              style="font-size: 20px"
-            />
-          </div>
-          <div class="form-group col-6">
-            <label>Jam Check Out</label
-            ><input
-              type="time"
-              class="form-control"
-              id="jamCo"
-              name="jamCo"
-              style="font-size: 20px"
-            />
-          </div>
-          <div class="form-group col-6">
-            <label>Jumlah Hari</label
-            ><input
-              type="text"
-              class="form-control"
-              id="jmlHari"
-              name="jmlHari"
-              style="font-size: 20px"
-            />
-          </div>
-          <input
-            type="hidden"
-            id="no_kamar"
-            name="noKamar"
-          />
-          <div class="form-group col-md-12">
-            <label>Pembayaran</label>
-            <select
-              id="pembayaran"
-              name="pembayaran"
-              class="form-control"
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5
+              class="modal-title"
               style="font-size: 20px"
             >
-              <option value="Cash">
-                Cash
-              </option>
-              <option value="Transfer Bank">
-                Transfer BANK
-              </option>
-              <option value="Dana">
-                Dana
-              </option>
-              <option value="Gopay">
-                Gopay
-              </option>
-            </select>
+              Tambah Tamu
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            >
+              <span aria-hidden="true"
+                >&times;</span
+              >
+            </button>
+          </div>
+          <div class="modal-body">
+            <form
+              action=""
+              method="post"
+              id="formTambahtamu"
+            >
+              <div class="row">
+                <div class="form-group col-6">
+                  <label>Nama Tamu</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="namaTamu"
+                    name="namaTamu"
+                    style="font-size: 20px"
+                  />
+                </div>
+                <div class="form-group col-6">
+                  <label>NIK Tamu</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="nikTamu"
+                    name="nikTamu"
+                    style="font-size: 20px"
+                  />
+                </div>
+                <div class="form-group col-6">
+                  <label>Email Tamu</label
+                  ><input
+                    type="email"
+                    class="form-control"
+                    id="email_ci"
+                    name="email"
+                    style="font-size: 20px"
+                  />
+                </div>
+                <div class="form-group col-6">
+                  <label>Tanggal Check In</label
+                  ><input
+                    type="date"
+                    class="form-control"
+                    id="tglCi"
+                    name="tglCi"
+                    style="font-size: 20px"
+                  />
+                </div>
+                <div class="form-group col-6">
+                  <label>Jam Check In</label
+                  ><input
+                    type="time"
+                    class="form-control"
+                    id="jamCi"
+                    name="jamCi"
+                    style="font-size: 20px"
+                  />
+                </div>
+                <div class="form-group col-6">
+                  <label>Tanggal Check Out</label
+                  ><input
+                    type="date"
+                    class="form-control"
+                    id="tglCo"
+                    name="tglCo"
+                    style="font-size: 20px"
+                  />
+                </div>
+                <div class="form-group col-6">
+                  <label>Jam Check Out</label
+                  ><input
+                    type="time"
+                    class="form-control"
+                    id="jamCo"
+                    name="jamCo"
+                    style="font-size: 20px"
+                  />
+                </div>
+                <div class="form-group col-6">
+                  <label>Jumlah Hari</label
+                  ><input
+                    type="text"
+                    class="form-control"
+                    id="jmlHari"
+                    name="jmlHari"
+                    style="font-size: 20px"
+                  />
+                </div>
+                <input
+                  type="hidden"
+                  id="no_kamar"
+                  name="noKamar"
+                />
+                <div class="form-group col-md-12">
+                  <label>Pembayaran</label>
+                  <select
+                    id="pembayaran"
+                    name="pembayaran"
+                    class="form-control"
+                    style="font-size: 20px"
+                  >
+                    <option value="Cash">
+                      Cash
+                    </option>
+                    <option value="Transfer Bank">
+                      Transfer BANK
+                    </option>
+                    <option value="Dana">
+                      Dana
+                    </option>
+                    <option value="Gopay">
+                      Gopay
+                    </option>
+                  </select>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button
+                  type="submit"
+                  class="btn btn-primary"
+                  id="btnSimpan"
+                >
+                  Check in
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-secondary"
+                  onclick="kosongForm()"
+                >
+                  Reset
+                </button>
+              </div>
+            </form>
           </div>
         </div>
-        <div class="modal-footer">
-          <button
-            type="submit"
-            class="btn btn-primary"
-            id="btnSimpan"
-          >
-            Check in
-          </button>
-          <button
-            type="button"
-            class="btn btn-secondary"
-            onclick="kosongForm()"
-          >
-            Reset
-          </button>
-        </div>
-      </form>
+      </div>
     </div>
-  </div>
-</div>
-</div>
 </div>
 
-<script>
-var id;
-$.ajax({
-  type: "GET",
-  url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/all",
-  dataType: "JSON",
-  success: function (response) {
-    console.log(response.data);
-    $.each(
-      response.data,
-      function (
-        indexInArray,
-        valueOfElement
-      ) {
-        console.log(
-          valueOfElement.id_booking
-        );
-        $("#tabelku tbody").append(
-          `<tr>
-      <td>${indexInArray + 1}</td>
-      <td>${valueOfElement.name}</td>
-      <td>${valueOfElement.email}</td>
-      <td>${valueOfElement.checkin}</td>
-      <td>${valueOfElement.checkout}</td>
-     
-      <td>
-        <button id="edit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-id="${
-          valueOfElement.id_booking
-        }">Edit</button>
-        <button id="delete" class="btn btn-danger btn-sm"  data-id="${
-          valueOfElement.id_booking
-        }">Delete</button>
-        <button
-            type="button"
-            class="btn btn-success btn-sm"
-            data-bs-toggle="modal"
-            data-bs-target="#modalcheckin"
-            data-email='${
-              valueOfElement.email
-            }'
-            id='check_in'
-          >
-            Check In
-          </button>
-      </td>
-    </tr>`
-        );
-      }
-    );
-  },
-});
-$("#tabelku").on(
-  "click",
-  "#edit",
-  function () {
-    id = $(this).data("id");
-
-    $.ajax({
-      type: "GET",
-      url:
-        "https://tugasapi.informatikaunwaha.com/fikri/api2.php/cari/id_booking/eq/" +
-        id,
-      data: { fungsi: "editget", id: id },
-      dataType: "JSON",
-      success: function (response) {
-        $("#id").val(id);
-        $("#name").val(
-          response.data[0].name
-        );
-        $("#email").val(
-          response.data[0].email
-        );
-        $("#check-in").val(
-          response.data[0].checkin
-        );
-        $("#check-out").val(
-          response.data[0].checkout
-        );
-      },
-    });
-  }
-);
-$("#tabelku").on(
-  "click",
-  "#check_in",
-  function () {
-    var email = $(this).data("email");
-    console.log(email);
-    $.ajax({
-      type: "GET",
-      url:
-        "https://tugasapi.informatikaunwaha.com/fikri/api2.php/cari/email/eq/" +
-        email,
-      dataType: "json",
-      success: function (response) {
-        console.log(response);
-
-        $("#namaTamu").val(
-          response.data[0].name
-        );
-        $("#email_ci").val(
-          response.data[0].email
-        );
-        $("#tglCi").val(
-          response.data[0].checkin
-        );
-        $("#tglCo").val(
-          response.data[0].checkout
-        );
-        $("#noKamar").val(
-          response.data[0].no_kamar
-        );
-      },
-    });
-  }
-);
-$("#formTambahtamu").submit(function (e) {
-  e.preventDefault();
-  var email = $("#email_ci").val();
-  var tamu = $(
-    "#formTambahtamu"
-  ).serialize();
-  $.ajax({
-    type: "POST",
-    url: "https://tugasapi.informatikaunwaha.com/husnun/api/api.php/input",
-    data: tamu,
-    dataType: "json",
-    success: function (response) {
-
+    <script>
+      var id;
       $.ajax({
-        type: "DELETE",
-        url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php",
-        data: { id: email, kolom: "email" },
-        dataType: "json",
+        type: "GET",
+        url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/all",
+        dataType: "JSON",
         success: function (response) {
-          toastMixin
-            .fire({
-              animation: true,
-              title: "Data Berhasil Di Checkin",
-            })
-            .then((result) => window.location.reload());
-        },error: function (error) {
-          console.log(error);
-        }
+          console.log(response.data);
+          $.each(
+            response.data,
+            function (
+              indexInArray,
+              valueOfElement
+            ) {
+              console.log(
+                valueOfElement.id_booking
+              );
+              $("#tabelku tbody").append(
+                `<tr>
+            <td>${indexInArray + 1}</td>
+            <td>${valueOfElement.name}</td>
+            <td>${valueOfElement.email}</td>
+            <td>${valueOfElement.checkin}</td>
+            <td>${valueOfElement.checkout}</td>
+           
+            <td>
+              <button id="edit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-id="${
+                valueOfElement.id_booking
+              }">Edit</button>
+              <button id="delete" class="btn btn-danger btn-sm"  data-id="${
+                valueOfElement.id_booking
+              }">Delete</button>
+              <button
+                  type="button"
+                  class="btn btn-success btn-sm"
+                  data-bs-toggle="modal"
+                  data-bs-target="#modalcheckin"
+                  data-email='${
+                    valueOfElement.email
+                  }'
+                  id='check_in'
+                >
+                  Check In
+                </button>
+            </td>
+          </tr>`
+              );
+            }
+          );
+        },
       });
-    },
-  });
-});
-$("#submit").on("click", function (event) {
-  event.preventDefault();
-  var data = $("#form-input").serialize();
-  console.log(id);
-  $.ajax({
-    type: "PUT",
-    url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php",
-    contentType:
-      "application/x-www-form-urlencoded",
-    data: data,
-    success: function (response) {
-      console.log(response);
-      toastMixin
-            .fire({
-              animation: true,
-              title: "Data Berhasil Di Update",
-            })
-            .then((result) => window.location.reload());;
-    },
-    error: function (error) {
-      console.error(error);
-    },
-  });
-});
-$("#tabelku").on(
-  "click",
-  "#delete",
-  function () {
-    id = $(this).data("id");
-    $.ajax({
-      type: "DELETE",
-      url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php",
-      data: { id: id, kolom: "id_booking" },
-      dataType: "JSON",
-      success: function (response) {
-        toastMixin
-            .fire({
-              animation: true,
-              title: "Data Berhasil Di Hapus",
-            })
-            .then((result) => window.location.reload());
-      },
-    });
-  }
-);
-</script>
+      $("#tabelku").on(
+        "click",
+        "#edit",
+        function () {
+          id = $(this).data("id");
+
+          $.ajax({
+            type: "GET",
+            url:
+              "https://tugasapi.informatikaunwaha.com/fikri/api2.php/cari/id_booking/eq/" +
+              id,
+            data: { fungsi: "editget", id: id },
+            dataType: "JSON",
+            success: function (response) {
+              $("#id").val(id);
+              $("#name").val(
+                response.data[0].name
+              );
+              $("#email").val(
+                response.data[0].email
+              );
+              $("#check-in").val(
+                response.data[0].checkin
+              );
+              $("#check-out").val(
+                response.data[0].checkout
+              );
+            },
+          });
+        }
+      );
+      $("#tabelku").on(
+        "click",
+        "#check_in",
+        function () {
+          var email = $(this).data("email");
+          console.log(email);
+          $.ajax({
+            type: "GET",
+            url:
+              "https://tugasapi.informatikaunwaha.com/fikri/api2.php/cari/email/eq/" +
+              email,
+            dataType: "json",
+            success: function (response) {
+              console.log(response);
+
+              $("#namaTamu").val(
+                response.data[0].name
+              );
+              $("#email_ci").val(
+                response.data[0].email
+              );
+              $("#tglCi").val(
+                response.data[0].checkin
+              );
+              $("#tglCo").val(
+                response.data[0].checkout
+              );
+              $("#noKamar").val(
+                response.data[0].no_kamar
+              );
+            },
+          });
+        }
+      );
+      $("#formTambahtamu").submit(function (e) {
+        e.preventDefault();
+        var email = $("#email_ci").val();
+        var tamu = $(
+          "#formTambahtamu"
+        ).serialize();
+        $.ajax({
+          type: "POST",
+          url: "https://tugasapi.informatikaunwaha.com/husnun/api/api.php/input",
+          data: tamu,
+          dataType: "json",
+          success: function (response) {
+
+            $.ajax({
+              type: "DELETE",
+              url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php",
+              data: { id: email, kolom: "email" },
+              dataType: "json",
+              success: function (response) {
+                toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Checkin",
+                  })
+                  .then((result) => window.location.reload());
+              },error: function (error) {
+                console.log(error);
+              }
+            });
+          },
+        });
+      });
+      $("#submit").on("click", function (event) {
+        event.preventDefault();
+        var data = $("#form-input").serialize();
+        console.log(id);
+        $.ajax({
+          type: "PUT",
+          url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php",
+          contentType:
+            "application/x-www-form-urlencoded",
+          data: data,
+          success: function (response) {
+            console.log(response);
+            toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Update",
+                  })
+                  .then((result) => window.location.reload());;
+          },
+          error: function (error) {
+            console.error(error);
+          },
+        });
+      });
+      $("#tabelku").on(
+        "click",
+        "#delete",
+        function () {
+          id = $(this).data("id");
+          $.ajax({
+            type: "DELETE",
+            url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php",
+            data: { id: id, kolom: "id_booking" },
+            dataType: "JSON",
+            success: function (response) {
+              toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Hapus",
+                  })
+                  .then((result) => window.location.reload());
+            },
+          });
+        }
+      );
+    </script>

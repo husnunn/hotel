@@ -117,13 +117,15 @@
             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
           </div>
           <div class="modal-body">
+            
             <form id="orderForm1">
-              <div class="mb-3">
+                <div class="row">
+              <div class="form-group">
                 <label class="form-label" for="nomor_kamar">Nomor Kamar:</label>
                 <input type="text" id="nomor_kamar" class="form-control" name="nomor_kamar" required />
               </div>
 
-              <div class="mb-3">
+              <div class="form-group">
                 <label class="form-label" for="keterangan">Keterangan:</label>
                 <select id="keterangan" class="form-control" name="keterangan" required>
                   <option value="Cuci Kering">Cuci Kering</option>
@@ -132,10 +134,11 @@
                 >
               </div>
 
-              <div class="mb-3">
+              <div class="form-group">
                 <label class="form-label" for="kuantity">Berat Pakaian (kg):</label>
                 <input class="form-control" type="number" id="kuantity1" name="kuantity" required />
-
+              </div>
+              <div class="form-group">
                 <label class="form-label" for="status">Status:</label>
                 <select id="status" name="status" required class="form-control">
                   <option value="Pending" style="color: red">Pending</option>
@@ -143,33 +146,50 @@
                 >
               </div>
 
-              <div class="mb-3">
+              <div class="form-group">
                 <label class="form-label" for="tanggal">Tanggal :</label>
                 <input class="form-control" type="date" id="tanggal1" name="tanggal" required />
               </div>
 
-              <div class="mb-3">
+              <div class="form-group">
                 <label class="form-label" for="paymentStatus">Status Bayar:</label>
                 <select class="form-control" id="paymentStatus" name="status_bayar" required>
                   <option value="Belum Dibayar" style="color: red">Belum Dibayar</option>
                   <option value="Sudah Dibayar" style="color: green">Sudah Dibayar</option></select
                 >
               </div>
-              <div class="mb-3">
+              <div class="form-group">
                 <label class="form-label" for="harga">Total Harga:</label>
-                <input class="form-control" type="text" id="harga1" name="harga" required />
+                <input class="form-control" type="text"   id="harga1" name="harga" required />
               </div>
-              <div class="mb-3"></div>
+
+              <div class="col-6">
+              <div class="form-group">
+                <label for="" class="form-label">Kode Voucher</label>
+                <select select class="form-select form-select-md" name="" id="test"></select>
+              </div>
+            </div>
+              <div class="col-6">
+              <div class="form-group">
+                    <label for="" class="form-label">Nominal Voucher</label> 
+                    <select class="form-select form-select-md" disabled  name="" id="nominal_vc"> </select>
+                </div>
+            </div>
+            </div>
+      
               <button type="submit" id="tsubmit" hidden="1"></button>
+            </div>
             </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-            <button type="button" id="submit" onclick="$('#tsubmit').click()" class="btn btn-success">submit</button>
+        
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" id="submit" onclick="$('#tsubmit').click()" class="btn btn-success">submit</button>
+             
+              </div>
           </div>
         </div>
       </div>
-    </div>
+    
 
     <!-- Optional: Place to the bottom of scripts -->
     <script>
@@ -177,7 +197,73 @@
       //     document.getElementById("modaltambah"),
       //     options
       //   );
-
+      var nominal;
+      var nominal_vc;
+      var totalPrice;
+      var kode;
+      $("#orderForm1").on("focusout", "#nomor_kamar", function () {
+        var nomor_kamar = $(this).val()
+    $.ajax({
+    type: "GET",
+    url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/voucher/"+nomor_kamar,
+    dataType: "json",
+    success: function (response) {
+        
+      console.log(response);
+      $.each(response.data, function (indexInArray, valueOfElement) {
+          
+          nominal_vc = valueOfElement.nominal;
+          nominal = valueOfElement.nominal;
+          kode   = valueOfElement.kode_voucher;
+          id = valueOfElement.id_voucher
+          $("#test").append(`
+            <option value="${valueOfElement.kode_voucher}">${valueOfElement.kode_voucher}</option>
+            `);
+      });
+    },
+  });
+      });
+    
+      $("#orderForm1").on("focusout change", "#test", function () {
+        var kodevc = $("#test").val()
+        // console.log(totalPrice);
+        
+        $.ajax({
+            type: "GET",
+            url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/voucherkode/"+kodevc,
+            dataType: "json",
+            success: function (response) {
+                $.each(response.data, function (indexInArray, valueOfElement) {
+                    nominal = valueOfElement.nominal; 
+                    $("#nominal_vc").html(`
+            <option value="">${valueOfElement.nominal}</option>`)
+                });
+                if (totalPrice <= nominal ) {
+                    toastMixin
+              .fire({
+                title: "Voucher Gagal Di Gunakan",
+                icon: "error",
+              })                }
+                else{
+                var hargaKurang = $("#harga1").val()-nominal
+                console.log($("#harga1").val(hargaKurang));
+                }
+            }
+        });
+        console.log(kode);
+        $.ajax({
+               url: 'https://informatikaunwaha.com/tugasapi/zakki/api.php/voucher',  // Ganti dengan URL endpoint Anda
+               type: 'PUT',
+               contentType: 'application/x-www-form-urlencoded',
+               data: {kode_voucher:kode,terpakai:"1"},
+               success: function(response) {
+            console.log('Data berhasil diperbarui:', response);
+        },
+        error: function(error) {
+            console.error('Gagal memperbarui data:', error);
+        }
+    });
+      })
       function calculateTotalPrice() {
         var pricePerKg = 5000; // Harga per kg (sesuaikan dengan kebutuhan Anda)
         var kuantity = parseFloat(document.getElementById("kuantity").value);
@@ -210,33 +296,60 @@
       //     );
       //   }
 
-      function kirimForm(ambilData) {
-        // var data = JSON.parse(
-        //   localStorage.getItem("form")
-        // );
+    //   function kirimForm(ambilData,kode) {
+    //     // var data = JSON.parse(
+    //     //   localStorage.getItem("form")
+    //     // );
+        
 
-        $.each(ambilData, function (indexInArray, valueOfElement) {
-          $.ajax({
-            type: "POST",
-            url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/input",
-            data: valueOfElement,
-            dataType: "JSON",
-            success: function (response) {
-              localStorage.removeItem("form");
-              toastMixin.fire({
-             animation: true,
-             title: 'Data Berhasil Di Tambah'
-            }).then((result) => window.location.reload() )
-            },
-          });
-        });
-      }
+    //     $.each(ambilData, function (indexInArray, valueOfElement) {
+           
+    //         console.log(kode);
+   
+    //       $.ajax({
+    //         type: "POST",
+    //         url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/input",
+    //         data: valueOfElement,
+    //         dataType: "JSON",
+    //         success: function (response) {
+    //             console.log(kode);
+            
+    //           localStorage.removeItem("form");
+    //           toastMixin.fire({
+    //          animation: true,
+    //          title: 'Data Berhasil Di Tambah'
+    //         }).then((result) => window.location.reload() )
+    //         },
+    //       });
+    //     });
+    //   }
       $("#orderForm").on("focusout", "#kuantity", function () {
         calculateTotalPrice();
+        
       });
+      
+//       function updateStatusVoucher() {
+//     var kodeVoucher = $("#test").val();
+
+//     $.ajax({
+//         url: 'https://example.com/api/voucher/' + kodeVoucher,
+//         type: 'PUT',
+//         contentType: 'application/x-www-form-urlencoded',
+//         data: { terpakai: "1" },
+//         success: function(response) {
+//             console.log('Status voucher berhasil diperbarui:', response);
+//             // Setelah berhasil, lanjutkan dengan pengiriman formulir laundry
+//             submitFormLaundry();
+//         },
+//         error: function(error) {
+//             console.error('Gagal memperbarui status voucher:', error);
+//             // Handle error sesuai kebutuhan
+//         }
+//     });
+// }
       $("#orderForm1").on("focusout", "#kuantity1", function () {
         var today = new Date();
-
+        
         // Mendapatkan string tanggal dalam format yyyy-mm-dd
         var formattedDate = today.toISOString().split("T")[0];
 
@@ -246,67 +359,156 @@
         var kuantity = parseFloat(document.getElementById("kuantity1").value);
 
         if (!isNaN(kuantity) && kuantity >= 0) {
-          var totalPrice = pricePerKg * kuantity;
+           totalPrice = pricePerKg * kuantity;
           document.getElementById("harga1").value = totalPrice;
-
+          
           if (status === "Selesai") {
             document.getElementById("harga").value;
           }
         } else {
           document.getElementById("harga1").value = "Masukkan berat yang valid.";
         }
+        
+        
       });
-      var db;
+    //   function kode(kode) {
+        
+    //   }
+//       $("#orderForm1").submit(function (e) {
+//           event.preventDefault();
+         
+// })
 
-      var laundry_db = indexedDB.open("laundry", 1);
-      laundry_db.onupgradeneeded = function (event) {
-        db = event.target.result;
-        var tb_laundry = db.createObjectStore("laundry", { keyPath: "id", autoIncrement: true });
-      };
+    //   var db;
 
-      laundry_db.onsuccess = function (event) {
-        db = event.target.result;
-        $("#orderForm1").submit(function (e) {
-          event.preventDefault();
-          console.log("lalalal");
-          var izinRw = db.transaction(["laundry"], "readwrite");
-          var pilihTabel = izinRw.objectStore("laundry");
-          var tambahData = pilihTabel.add($("#orderForm1").serializeArray());
-          $("#nomor_kamar").val("");
-          $("#keterangan").val("");
-          $("#kuantity").val("");
-          $("#status").val("");
-          $("#status_bayar").val("");
-          $("#harga").val("");
-          $("#tanggal").val("");
+    //   var laundry_db = indexedDB.open("laundry", 1);
+    //   laundry_db.onupgradeneeded = function (event) {
+    //     db = event.target.result;
+    //     var tb_laundry = db.createObjectStore("laundry", { keyPath: "id", autoIncrement: true });
+    //   };
 
-          if (navigator.onLine) {
-            ambilData = pilihTabel.getAll();
-            ambilData.onsuccess = function (event) {
-              kirimForm(event.target.result);
-              pilihTabel.clear();
-            };
-          }
-          tambahData.onerror = function (event) {
-            console.error("Error");
-          };
-        });
-        var izinR = db.transaction(["laundry"], "readwrite");
-        var pilihTabel = izinR.objectStore("laundry");
-        var ambilData = pilihTabel.getAll();
-        ambilData.onsuccess = function (event) {
-          data = event.target.result;
-          if (data[0]) {
-            window.addEventListener("online", function () {
-              var izinR = db.transaction(["laundry"], "readwrite");
-              var pilihTabel = izinR.objectStore("laundry");
-              kirimForm(data);
-              pilihTabel.clear();
+    //   laundry_db.onsuccess = function (event) {
+    //     db = event.target.result;
+    //     $("#orderForm1").submit(function (e) {
+    //       event.preventDefault();
+          
+            
+          
+    //       var izinRw = db.transaction(["laundry"], "readwrite");
+    //       var pilihTabel = izinRw.objectStore("laundry");
+    //       var tambahData = pilihTabel.add($("#orderForm1").serializeArray());
+    //       $("#nomor_kamar").val("");
+    //       $("#keterangan").val("");
+    //       $("#kuantity").val("");
+    //       $("#status").val("");
+    //       $("#status_bayar").val("");
+    //       $("#harga").val("");
+    //       $("#tanggal").val("");
+
+    //       if (navigator.onLine) {
+    //         ambilData = pilihTabel.getAll();
+    //         ambilData.onsuccess = function (event) {
+    //           kirimForm(event.target.result,kode);
+    //           pilihTabel.clear();
+         
+    //         };
+    //       }
+    //       tambahData.onerror = function (event) {
+    //         console.error("Error");
+    //       };
+    //     });
+    //     var izinR = db.transaction(["laundry"], "readwrite");
+    //     var pilihTabel = izinR.objectStore("laundry");
+    //     var ambilData = pilihTabel.getAll();
+    //     ambilData.onsuccess = function (event) {
+    //       data = event.target.result;
+    //       if (data[0]) {
+    //         window.addEventListener("online", function () {
+    //           var izinR = db.transaction(["laundry"], "readwrite");
+    //           var pilihTabel = izinR.objectStore("laundry");
+    //           kirimForm(data,kode);
+    //           pilihTabel.clear();
+            
+    //         });
+    //       }
+    //     };
+    //   };
+    function ambilForm() {
+        var form =
+          $("#orderForm1").serializeArray();
+        //   console.log(form);
+
+        var data =
+          JSON.parse(
+            localStorage.getItem("form")
+          ) || [];
+        data.push(form);
+        localStorage.setItem(
+          "form",
+          JSON.stringify(data)
+        );
+      }
+
+      function kirimFormm() {
+        var data = JSON.parse(
+          localStorage.getItem("form")
+        );
+        $.each(
+          data,
+          function (
+            indexInArray,
+            valueOfElement
+          ) {
+            $.ajax({
+              type: "POST",
+              url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/input",
+              data: valueOfElement,
+              dataType: "JSON",
+              success: function (response) {
+                // localStorage.removeItem("form");
+                console.log(response);
+              },
             });
           }
-        };
-      };
-
+        );
+      }
+$("#orderForm1").submit(function (e) { 
+    e.preventDefault();
+    
+    // console.log(ambilForm);
+    ambilForm();
+ if (navigator.onLine) {
+    // kirimFormm()
+    var data = JSON.parse(
+          localStorage.getItem("form")
+        );
+        $.each(data, function (indexInArray, valueOfElement) { 
+            $.ajax({
+      type: "POST",
+      url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/input",
+      dataType: "JSON", // Ganti dengan URL tempat Anda menyimpan fungsi PHP untuk menangani data
+      data: valueOfElement,
+      success: function (response) {
+          
+        toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Tambah",
+                  })
+                  .then((result) => window.location.reload());
+        console.log(response);
+      }
+    });
+    localStorage.removeItem("form");
+        });
+       
+ }
+            // ambilForm()
+            //   kirimFormm();
+        
+          
+        
+});
       $("#kuantity").on("focusout", function () {
         calculateTotalPrice();
       });

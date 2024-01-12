@@ -231,10 +231,11 @@
                 dataType: "JSON",
                 success: function (response) {
                     
-                    toastMixin.fire({
-             animation: true,
-             title: 'Data Berhasil Di Hapus'
-            }).then((result) => window.location.reload() )
+                Swal.fire({
+                title: "Deleted!",
+                text: "Your file has been deleted.",
+                icon: "success"
+                });
   
 
                     // window.location.reload()
@@ -260,10 +261,6 @@
                 contentType: 'application/x-www-form-urlencoded',
 
                 success: function (response) {
-                    toastMixin.fire({
-             animation: true,
-             title: 'Data Berhasil Di Edit'
-            }).then((result) => window.location.reload() )
                     // window.location.reload()
                     console.log(response);
                 }
