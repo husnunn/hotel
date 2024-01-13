@@ -218,8 +218,14 @@
       },
       success: function (response) {
         console.log("Received response:", response);
+        toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Tambah",
+                  })
+                  .then((result) => window.location.reload());
         // Arahkan pengguna ke halaman databarang.html setelah berhasil
-        location.reload();
+        // location.reload();
       },
       error: function (xhr, status, error) {
         // Menampilkan pesan kesalahan jika gagal mengirim data

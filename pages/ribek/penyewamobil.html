@@ -215,12 +215,12 @@
         data: data,
         success: function (response) {
           console.log(response);
-         Swal.fire({
-            title: "Success!",
-            text: "Tamu Berhasil Di Update",
-            icon: "success"
-          });
-          ambildatatamu();
+          toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Ubah",
+                  })
+                  .then((result) => window.location.reload());
         },
         error: function (error) {
           console.log("Error: ", error);

@@ -231,21 +231,18 @@
                 dataType: "JSON",
                 success: function (response) {
                     
-                Swal.fire({
-                title: "Deleted!",
-                text: "Your file has been deleted.",
-                icon: "success"
-                });
+                    toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Hapus",
+                  })
+                  .then((result) => window.location.reload());
   
 
                     // window.location.reload()
                 },
                 error: function (error) {
-                    swal({
-                        title: "Gagal",
-                        text: "Terjadi Kesalahan Harap Coba Lagi",
-                        icon: "error",
-                    });
+                   console.log(error);
                 }
             });
         })
@@ -261,7 +258,12 @@
                 contentType: 'application/x-www-form-urlencoded',
 
                 success: function (response) {
-                    // window.location.reload()
+                    toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Ubah",
+                  })
+                  .then((result) => window.location.reload());
                     console.log(response);
                 }
             });

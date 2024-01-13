@@ -117,17 +117,18 @@
                   data: { kendaraan: id, ketersediaan: "0" },
                   dataType: "json",
                   success: function (response) {
+                    toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Tambah",
+                  })
+                  .then((result) => window.location.reload());
                     console.log(response);
                   },
                 });
                 localStorage.removeItem("form");
                 console.log(response);
-                swal.fire({
-                  position: "center",
-                  icon: "success",
-                  title: "Your work has been saved",
-                  showConfirmButton: true,
-                });
+                
               },
             });
           });

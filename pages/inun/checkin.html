@@ -202,15 +202,14 @@ var jumlahHari = Math.ceil(jam / (1000 * 3600 * 24));
                 statusCi: "1",
               },
               dataType: "json",
-              success: function (response) {
-                console.log(response);
-
+              success: function (response) { 
                 toastMixin
                   .fire({
                     animation: true,
                     title: "Data Berhasil Di Tambah",
                   })
                   .then((result) => window.location.reload());
+                  console.log(response);
               },
             });
           },
