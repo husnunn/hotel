@@ -75,10 +75,11 @@
 
     $.ajax({
       type: "POST",
-      url: "https://tugasapi.informatikaunwaha.com/jaza/api/post_api.phpp",
+      url: "https://tugasapi.informatikaunwaha.com/jaza/api/post_api.php",
       data: dataform,
       dataType: "JSON",
       success: function (response) {
+        console.log(response);
         toastMixin.fire({
     animation: true,
     title: 'Karyawan Berhasil Ditambah'

@@ -138,6 +138,7 @@
   
         function tambahTamu() {
             var data = $("#formTambahtamu").serialize();
+            console.log(data);
             // Kirim data ke server menggunakan AJAX
             $.ajax({
               type: "POST",

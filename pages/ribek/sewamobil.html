@@ -20,7 +20,6 @@
         <form action="" method="post" id="formTambahkendaraan">
           <div class="row">
             <div class="row">
-              <input type="text" hidden class="form-control" id="id" name="id" value="" style="font-size: 20px" />
                 <div class="form-group col-6"><label>No Kamar</label><input type="text" class="form-control" id="no_kamar"
                   name="no_kamar" style="font-size: 20px"/></div>
                 <div class="form-group col-6"><label>Atas Nama</label><input type="text" class="form-control" id="atasNama"
@@ -104,6 +103,7 @@
         data.push(form);
         localStorage.setItem("form", JSON.stringify(data));
         if (navigator.onLine) {
+            console.log(data);
           $.each(data, function (indexInArray, valueOfElement) {
             $.ajax({
               type: "POST",
