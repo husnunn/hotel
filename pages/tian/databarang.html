@@ -96,49 +96,8 @@
       success: function (data) {
         console.log("Received data:", data);
 
-        var tableBody = $("#dataBody");
+        loadAndDisplayData();
 
-        $.each(data, function (index, row) {
-          var newRow = $("<tr>");
-
-          //   newRow.append(
-          //     $("<td>").text(row.id_barang)
-          //   );
-          newRow.append($("<td>").text(row.nama_barang));
-          newRow.append($("<td>").text(row.kategori));
-          newRow.append($("<td>").text("kamar " + row.lokasi_barang));
-          //   newRow.append(
-          //     $("<td>").text(row.tanggal_masuk)
-          //   );
-          newRow.append($("<td>").text(row.kondisi));
-
-          var deleteButton = $("<button class='btn btn-danger btn-sm'>")
-            .text("Hapus")
-            .click(function () {
-              hapusData(row.id_barang);
-            });
-          newRow.append($("<td>").append(deleteButton));
-
-          var editButton = $("<button class='btn btn-warning btn-sm'>")
-            .text("Edit")
-            .click(function () {
-              editData(row.id_barang);
-            });
-          newRow.append($("<td>").append(editButton));
-
-          tableBody.append(newRow);
-        });
-        $(function () {
-          $("#barangTable").DataTable({
-            paging: true,
-            lengthChange: false,
-            searching: true,
-            ordering: true,
-            info: true,
-            autoWidth: false,
-            responsive: true,
-          });
-        });
       },
       error: function (xhr, status, error) {
         console.error("Failed to fetch data. Status code: " + xhr.status);
@@ -210,7 +169,7 @@
       method: "POST",
       contentType: "application/x-www-form-urlencoded",
       data: {
-        id_barang: data.id_barang,
+        // id_barang: data.id_barang,
         nama_barang: data.nama_barang,
         kategori: data.kategori,
         lokasi_barang: data.lokasi_barang,
@@ -218,14 +177,14 @@
       },
       success: function (response) {
         console.log("Received response:", response);
+        console.log(data)
         toastMixin
                   .fire({
                     animation: true,
                     title: "Data Berhasil Di Tambah",
                   })
                   .then((result) => window.location.reload());
-        // Arahkan pengguna ke halaman databarang.html setelah berhasil
-        // location.reload();
+        location.reload();
       },
       error: function (xhr, status, error) {
         // Menampilkan pesan kesalahan jika gagal mengirim data
@@ -395,7 +354,7 @@
 
           // Sesuaikan tindakan setelah berhasil menyimpan perubahan
           // Contoh: memuat ulang data dan memperbarui tampilan
-          loadAndDisplayData();
+          location.reload()
 
           // Menutup modal edit
           $("#modaledit").modal("hide");
@@ -445,6 +404,17 @@
           newRow.append($("<td>").append(editButton));
 
           $("#dataBody").append(newRow);
+        });
+        $(function () {
+          $("#barangTable").DataTable({
+            paging: true,
+            lengthChange: false,
+            searching: true,
+            ordering: true,
+            info: true,
+            autoWidth: false,
+            responsive: true,
+          });
         });
       },
       error: function (xhr, status, error) {
