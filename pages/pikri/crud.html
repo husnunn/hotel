@@ -154,135 +154,33 @@
             </button>
           </div>
           <div class="modal-body">
-            <form
-              action=""
-              method="post"
-              id="formTambahtamu"
-            >
+            <form action="" method="post" id="formTambahtamu">
               <div class="row">
-                <div class="form-group col-6">
-                  <label>Nama Tamu</label
-                  ><input
-                    type="text"
-                    class="form-control"
-                    id="namaTamu"
-                    name="namaTamu"
-                    style="font-size: 20px"
-                  />
-                </div>
-                <div class="form-group col-6">
-                  <label>NIK Tamu</label
-                  ><input
-                    type="text"
-                    class="form-control"
-                    id="nikTamu"
-                    name="nikTamu"
-                    style="font-size: 20px"
-                  />
-                </div>
-                <div class="form-group col-6">
-                  <label>Email Tamu</label
-                  ><input
-                    type="email"
-                    class="form-control"
-                    id="email_ci"
-                    name="email"
-                    style="font-size: 20px"
-                  />
-                </div>
-                <div class="form-group col-6">
-                  <label>Tanggal Check In</label
-                  ><input
-                    type="date"
-                    class="form-control"
-                    id="tglCi"
-                    name="tglCi"
-                    style="font-size: 20px"
-                  />
-                </div>
-                <div class="form-group col-6">
-                  <label>Jam Check In</label
-                  ><input
-                    type="time"
-                    class="form-control"
-                    id="jamCi"
-                    name="jamCi"
-                    style="font-size: 20px"
-                  />
-                </div>
-                <div class="form-group col-6">
-                  <label>Tanggal Check Out</label
-                  ><input
-                    type="date"
-                    class="form-control"
-                    id="tglCo"
-                    name="tglCo"
-                    style="font-size: 20px"
-                  />
-                </div>
-                <div class="form-group col-6">
-                  <label>Jam Check Out</label
-                  ><input
-                    type="time"
-                    class="form-control"
-                    id="jamCo"
-                    name="jamCo"
-                    style="font-size: 20px"
-                  />
-                </div>
-                <div class="form-group col-6">
-                  <label>Jumlah Hari</label
-                  ><input
-                    type="text"
-                    class="form-control"
-                    id="jmlHari"
-                    name="jmlHari"
-                    style="font-size: 20px"
-                  />
-                </div>
-                <input
-                  type="hidden"
-                  id="no_kamar"
-                  name="noKamar"
-                />
+                <div class="form-group col-6"><label>Nama Tamu</label><input type="text" class="form-control" id="namaTamu" name="namaTamu" style="font-size: 20px" /></div>
+                <div class="form-group col-6"><label>NIK Tamu</label><input type="text" class="form-control" id="nikTamu" name="nikTamu" style="font-size: 20px" /></div>
+                <div class="form-group col-6"><label>Email Tamu</label><input type="email" class="form-control" id="email" name="email" style="font-size: 20px" /></div>
+                <div class="form-group col-6"><label>Tanggal Check In</label><input type="date" class="form-control" id="tglCi" name="tglCi" style="font-size: 20px" /></div>
+                <div class="form-group col-6"><label>Jam Check In</label><input type="time" class="form-control" id="jamCi" name="jamCi" style="font-size: 20px" /></div>
+                <div class="form-group col-6"><label>Tanggal Check Out</label><input type="date" class="form-control" id="tglCo" name="tglCo" style="font-size: 20px" /></div>
+                <div class="form-group col-6"><label>Jam Check Out</label><input type="time" class="form-control" id="jamCo" name="jamCo" style="font-size: 20px" /></div>
+                <div class="form-group col-6"><label>Jumlah Hari</label><input type="text" class="form-control" id="jmlHari" name="jmlHari" style="font-size: 20px" /></div>
+                <div class="form-group col-6"><label>Harga</label><input type="text" class="form-control" id="harga" name="" style="font-size: 20px" /></div>
+                <input type="hidden" id="no_kamar" name="noKamar" />
+    
                 <div class="form-group col-md-12">
                   <label>Pembayaran</label>
-                  <select
-                    id="pembayaran"
-                    name="pembayaran"
-                    class="form-control"
-                    style="font-size: 20px"
-                  >
-                    <option value="Cash">
-                      Cash
-                    </option>
-                    <option value="Transfer Bank">
-                      Transfer BANK
-                    </option>
-                    <option value="Dana">
-                      Dana
-                    </option>
-                    <option value="Gopay">
-                      Gopay
-                    </option>
+                  <select id="pembayaran" name="pembayaran" class="form-control" style="font-size: 20px">
+                    <option value="Cash">Cash</option>
+                    <option value="Transfer Bank">Transfer BANK</option>
+                    <option value="Dana">Dana</option>
+                    <option value="Gopay">Gopay</option>
                   </select>
                 </div>
               </div>
+              <input type="hidden" name="kode" id="kode" />
               <div class="modal-footer">
-                <button
-                  type="submit"
-                  class="btn btn-primary"
-                  id="btnSimpan"
-                >
-                  Check in
-                </button>
-                <button
-                  type="button"
-                  class="btn btn-secondary"
-                  onclick="kosongForm()"
-                >
-                  Reset
-                </button>
+                <button type="submit" class="btn btn-primary" id="btnSimpan">Check in</button>
+                <button type="button" class="btn btn-secondary" onclick="kosongForm()">Reset</button>
               </div>
             </form>
           </div>
