@@ -48,7 +48,7 @@
             <td>${valueOfElement.gaji}</td>
             <td>
             <button class='btn btn-primary btn-sm' onclick="ambil(this)" data-gaji='${valueOfElement.gaji}' data-keterangan='${valueOfElement.keterangan}' data-idjabatan='${valueOfElement.id_jabatan}'>Edit</button>
-            <button class='btn btn-danger btn-sm'  data-idjabatan='${valueOfElement.id_jabatan}'>Hapus</button>
+            <button class='btn btn-danger btn-sm' onclick="test(this)" id='btn-hapus' data-idjabatan='${valueOfElement.id_jabatan}'>Hapus</button>
 
             </td>
         </tr>
@@ -82,7 +82,7 @@
       data: dataform,
       dataType: "JSON",
       success: function (response) {
-
+        
         toastMixin.fire({
     animation: true,
     title: 'Gaji Berhasil Ditambah'
@@ -96,9 +96,44 @@
     reset();
   });
   $("#btnUpdate").click(function () {
-    reset();
+    // reset();
+    var dataform = {
+      id_jabatan : $("#id_jabatan").val(),
+      keterangan : $("#nama_jabatan").val(),
+      gaji: $("#gaji").val(),
+    };
+    console.log(dataform);
+    $.ajax({
+                type: 'PUT',
+                url: 'https://informatikaunwaha.com/tugasapi/zakki/api.php/jabatan',
+                data: dataform,
+                contentType: 'application/x-www-form-urlencoded',
+                success: function(response) {
+                    console.log('Update successful:', response);
+                },
+                error: function(error) {
+                    console.error('Error updating data:', error);
+                }
+            });
   });
 
+function test(elemen) {
+  var data = {
+    id:$(elemen).data('idjabatan')
+  }
+  console.log(data);
+  $.ajax({
+                type: 'DELETE',
+                url: 'https://informatikaunwaha.com/tugasapi/zakki/api.php/jabatan',
+                data: data,
+                success: function(response) {
+                    console.log('Delete successful:', response);
+                },
+                error: function(error) {
+                    console.error('Error deleting data:', error);
+                }
+            });
+}
   function reset() {
     $("#id_jabatan").val("");
     $("#nama_jabatan").val("");
