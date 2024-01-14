@@ -131,6 +131,7 @@
               type: "PUT",
               url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/ketersediaan",
               data: { nomor_kamar: no_kamar, ketersediaan: "0" },
+              contentType: 'application/x-www-form-urlencoded',
               dataType: "json",
               success: function (response) {
                 console.log(response);
