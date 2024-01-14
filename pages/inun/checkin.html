@@ -190,6 +190,12 @@ var jumlahHari = Math.ceil(jam / (1000 * 3600 * 24));
           dataType: "JSON", // Ganti dengan URL tempat Anda menyimpan fungsi PHP untuk menangani data
           data: valueOfElement,
           success: function (response) {
+            toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Tambah",
+                  })
+                  .then((result) => window.location.reload());
             console.log(valueOfElement);
             console.log(response);
             localStorage.removeItem("form");
@@ -203,13 +209,8 @@ var jumlahHari = Math.ceil(jam / (1000 * 3600 * 24));
               },
               dataType: "json",
               success: function (response) { 
-                toastMixin
-                  .fire({
-                    animation: true,
-                    title: "Data Berhasil Di Tambah",
-                  })
-                  .then((result) => window.location.reload());
                   console.log(response);
+                  
               },
             });
           },

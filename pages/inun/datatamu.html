@@ -147,7 +147,7 @@
                       <td>${item.noKamar}</td>
                       <td>
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit" id="buttonFormEdit" data-id="${item.id}">Edit</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalco" id='tampilCo'  data-id="${item.id}">Checkouppt</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalco" id='tampilCo'  data-id="${item.id}">Checkout</button>
                       </td>
                     </tr>`;
           $("#tbl-api").DataTable().row.add($(row)).draw();
@@ -182,13 +182,20 @@
       data: { id: id, kolom: "id" },
       dataType: "json",
       success: function (response) {
+        if (response.status) {
+            toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Tambah",
+                  })
+                  .then((result) => window.location.reload());
+        };
         $.ajax({
                 type: 'PUT',
                 url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/ketersediaan",
-                data: { nomor_kamar: noKamar, ketersediaan: "0" },
+                data: { nomor_kamar: noKamar, ketersediaan: "1" },
                 contentType: 'application/x-www-form-urlencoded',
                 success: function(response) {
-                    
                 },
                 error: function(error) {
                     

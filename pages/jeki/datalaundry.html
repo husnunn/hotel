@@ -281,72 +281,11 @@
         }
       }
 
-      //   function ambilForm() {
-      //     var form =
-      //       $("#orderForm").serializeArray();
-
-      //     var data =
-      //       JSON.parse(
-      //         localStorage.getItem("form")
-      //       ) || [];
-      //     data.push(form);
-      //     localStorage.setItem(
-      //       "form",
-      //       JSON.stringify(data)
-      //     );
-      //   }
-
-    //   function kirimForm(ambilData,kode) {
-    //     // var data = JSON.parse(
-    //     //   localStorage.getItem("form")
-    //     // );
-        
-
-    //     $.each(ambilData, function (indexInArray, valueOfElement) {
-           
-    //         console.log(kode);
-   
-    //       $.ajax({
-    //         type: "POST",
-    //         url: "https://informatikaunwaha.com/tugasapi/zakki/api.php/input",
-    //         data: valueOfElement,
-    //         dataType: "JSON",
-    //         success: function (response) {
-    //             console.log(kode);
-            
-    //           localStorage.removeItem("form");
-    //           toastMixin.fire({
-    //          animation: true,
-    //          title: 'Data Berhasil Di Tambah'
-    //         }).then((result) => window.location.reload() )
-    //         },
-    //       });
-    //     });
-    //   }
       $("#orderForm").on("focusout", "#kuantity", function () {
         calculateTotalPrice();
         
       });
       
-//       function updateStatusVoucher() {
-//     var kodeVoucher = $("#test").val();
-
-//     $.ajax({
-//         url: 'https://example.com/api/voucher/' + kodeVoucher,
-//         type: 'PUT',
-//         contentType: 'application/x-www-form-urlencoded',
-//         data: { terpakai: "1" },
-//         success: function(response) {
-//             console.log('Status voucher berhasil diperbarui:', response);
-//             // Setelah berhasil, lanjutkan dengan pengiriman formulir laundry
-//             submitFormLaundry();
-//         },
-//         error: function(error) {
-//             console.error('Gagal memperbarui status voucher:', error);
-//             // Handle error sesuai kebutuhan
-//         }
-//     });
-// }
       $("#orderForm1").on("focusout", "#kuantity1", function () {
         var today = new Date();
         
@@ -371,68 +310,7 @@
         
         
       });
-    //   function kode(kode) {
-        
-    //   }
-//       $("#orderForm1").submit(function (e) {
-//           event.preventDefault();
-         
-// })
 
-    //   var db;
-
-    //   var laundry_db = indexedDB.open("laundry", 1);
-    //   laundry_db.onupgradeneeded = function (event) {
-    //     db = event.target.result;
-    //     var tb_laundry = db.createObjectStore("laundry", { keyPath: "id", autoIncrement: true });
-    //   };
-
-    //   laundry_db.onsuccess = function (event) {
-    //     db = event.target.result;
-    //     $("#orderForm1").submit(function (e) {
-    //       event.preventDefault();
-          
-            
-          
-    //       var izinRw = db.transaction(["laundry"], "readwrite");
-    //       var pilihTabel = izinRw.objectStore("laundry");
-    //       var tambahData = pilihTabel.add($("#orderForm1").serializeArray());
-    //       $("#nomor_kamar").val("");
-    //       $("#keterangan").val("");
-    //       $("#kuantity").val("");
-    //       $("#status").val("");
-    //       $("#status_bayar").val("");
-    //       $("#harga").val("");
-    //       $("#tanggal").val("");
-
-    //       if (navigator.onLine) {
-    //         ambilData = pilihTabel.getAll();
-    //         ambilData.onsuccess = function (event) {
-    //           kirimForm(event.target.result,kode);
-    //           pilihTabel.clear();
-         
-    //         };
-    //       }
-    //       tambahData.onerror = function (event) {
-    //         console.error("Error");
-    //       };
-    //     });
-    //     var izinR = db.transaction(["laundry"], "readwrite");
-    //     var pilihTabel = izinR.objectStore("laundry");
-    //     var ambilData = pilihTabel.getAll();
-    //     ambilData.onsuccess = function (event) {
-    //       data = event.target.result;
-    //       if (data[0]) {
-    //         window.addEventListener("online", function () {
-    //           var izinR = db.transaction(["laundry"], "readwrite");
-    //           var pilihTabel = izinR.objectStore("laundry");
-    //           kirimForm(data,kode);
-    //           pilihTabel.clear();
-            
-    //         });
-    //       }
-    //     };
-    //   };
     function ambilForm() {
         var form =
           $("#orderForm1").serializeArray();
@@ -475,10 +353,10 @@
 $("#orderForm1").submit(function (e) { 
     e.preventDefault();
     
-    // console.log(ambilForm);
+    
     ambilForm();
  if (navigator.onLine) {
-    // kirimFormm()
+    
     var data = JSON.parse(
           localStorage.getItem("form")
         );
@@ -503,11 +381,7 @@ $("#orderForm1").submit(function (e) {
         });
        
  }
-            // ambilForm()
-            //   kirimFormm();
-        
-          
-        
+     
 });
       $("#kuantity").on("focusout", function () {
         calculateTotalPrice();
@@ -605,8 +479,12 @@ el=`<span class='badge bg-warning'>Pending</span>`
           success: function (response) {
             console.log(response);
             console.log(response);
-            // $("#modalPelanggan").modal("hide");
-            // window.location.reload();
+            toastMixin
+                  .fire({
+                    animation: true,
+                    title: "Data Berhasil Di Tambah",
+                  })
+                  .then((result) => window.location.reload());
           },
         });
       });

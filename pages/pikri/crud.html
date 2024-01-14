@@ -314,7 +314,7 @@
               $("#tglCo").val(
                 response.data[0].checkout
               );
-              $("#noKamar").val(
+              $("#no_kamar").val(
                 response.data[0].no_kamar
               );
               tglCi = new Date($("#tglCi").val());
@@ -350,10 +350,12 @@ var jumlahHari = Math.ceil(jam / (1000 * 3600 * 24));
   });
       $("#formTambahtamu").submit(function (e) {
         e.preventDefault();
-        var email = $("#email_ci").val();
+        var no_kamar = $("#no_kamar").val();
+        console.log(no_kamar);
         var tamu = $(
           "#formTambahtamu"
         ).serialize();
+        
         $.ajax({
           type: "POST",
           url: "https://tugasapi.informatikaunwaha.com/husnun/api/api.php/input",
@@ -364,7 +366,7 @@ var jumlahHari = Math.ceil(jam / (1000 * 3600 * 24));
             $.ajax({
               type: "DELETE",
               url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php",
-              data: { id: email, kolom: "email" },
+              data: { id: no_kamar, kolom: "no_kamar" },
               dataType: "json",
               success: function (response) {
                 toastMixin
