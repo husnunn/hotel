@@ -147,7 +147,7 @@
                       <td>${item.noKamar}</td>
                       <td>
                         <button type="button" class="btn btn-warning" data-bs-toggle="modal" data-bs-target="#modaledit" id="buttonFormEdit" data-id="${item.id}">Edit</button>
-                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalco" id='tampilCo' data-id="${item.id}">Checkout</button>
+                        <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modalco" id='tampilCo'  data-id="${item.id}">Checkouppt</button>
                       </td>
                     </tr>`;
           $("#tbl-api").DataTable().row.add($(row)).draw();
@@ -173,6 +173,9 @@
     });
   });
   function co(id, noKamar) {
+    console.log(id);
+    console.log(noKamar);
+  
     $.ajax({
       type: "DELETE",
       url: "https://informatikaunwaha.com/tugasapi.informatikaunwaha.com/husnun/api/api.php",
@@ -180,22 +183,17 @@
       dataType: "json",
       success: function (response) {
         $.ajax({
-          type: "PUT",
-          url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/ketersediaan",
-          data: { nomor_kamar: noKamar, ketersediaan: "1" },
-          dataType: "json",
-          success: function (response) {
-            toastMixin
-              .fire({
-                animation: true,
-                title: "Data Berhasil Di Checkout",
-              })
-              .then((result) => window.location.reload());
-          },
-          error: function (error) {
-            console.log(error);
-          },
-        });
+                type: 'PUT',
+                url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/ketersediaan",
+                data: { nomor_kamar: noKamar, ketersediaan: "0" },
+                contentType: 'application/x-www-form-urlencoded',
+                success: function(response) {
+                    
+                },
+                error: function(error) {
+                    
+                }
+            });
       },
     });
   }

@@ -162,7 +162,7 @@ var jumlahHari = Math.ceil(jam / (1000 * 3600 * 24));
         currentDate.setDate(currentDate.getDate() + 3);
         var kode = $("#kode").val();
 
-        var test = { kode_voucher: kode, nominal: "200000", terpakai: "0", masa_berlaku: currentDate.toISOString().slice(0, 10) };
+        var test = { kode_voucher: kode, nominal: "20000", terpakai: "0", masa_berlaku: currentDate.toISOString().slice(0, 10) };
         if (kode != "") {
           console.log("test");
           $.ajax({

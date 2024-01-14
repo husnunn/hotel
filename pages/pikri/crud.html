@@ -11,6 +11,7 @@
               <th>Email</th>
               <th>Check-in Date</th>
               <th>Check-out Date</th>
+              <th>Nomor Kamar</th>
               <th>Actions</th>
             </tr>
           </thead>
@@ -158,7 +159,7 @@
               <div class="row">
                 <div class="form-group col-6"><label>Nama Tamu</label><input type="text" class="form-control" id="namaTamu" name="namaTamu" style="font-size: 20px" /></div>
                 <div class="form-group col-6"><label>NIK Tamu</label><input type="text" class="form-control" id="nikTamu" name="nikTamu" style="font-size: 20px" /></div>
-                <div class="form-group col-6"><label>Email Tamu</label><input type="email" class="form-control" id="email" name="email" style="font-size: 20px" /></div>
+                <div class="form-group col-6"><label>Email Tamu</label><input type="email" class="form-control" id="emailCi" name="email" style="font-size: 20px" /></div>
                 <div class="form-group col-6"><label>Tanggal Check In</label><input type="date" class="form-control" id="tglCi" name="tglCi" style="font-size: 20px" /></div>
                 <div class="form-group col-6"><label>Jam Check In</label><input type="time" class="form-control" id="jamCi" name="jamCi" style="font-size: 20px" /></div>
                 <div class="form-group col-6"><label>Tanggal Check Out</label><input type="date" class="form-control" id="tglCo" name="tglCo" style="font-size: 20px" /></div>
@@ -213,11 +214,12 @@
             <td>${valueOfElement.email}</td>
             <td>${valueOfElement.checkin}</td>
             <td>${valueOfElement.checkout}</td>
+            <td>${valueOfElement.no_kamar}</td>
            
             <td>
               <button id="edit" class="btn btn-primary btn-sm" data-bs-toggle="modal" data-bs-target="#editModal" data-id="${
-                valueOfElement.id_booking
-              }">Edit</button>
+                valueOfElement.id_booking}"
+                >Edit</button>
               <button id="delete" class="btn btn-danger btn-sm"  data-id="${
                 valueOfElement.id_booking
               }">Delete</button>
@@ -229,6 +231,7 @@
                   data-email='${
                     valueOfElement.email
                   }'
+                  data-nokamar='${valueOfElement.no_kamar}'
                   id='check_in'
                 >
                   Check In
@@ -240,6 +243,7 @@
           );
         },
       });
+      var harga;
       $("#tabelku").on(
         "click",
         "#edit",
@@ -275,8 +279,20 @@
         "click",
         "#check_in",
         function () {
+            var nokamar = $(this).data('nokamar');
+            $.ajax({
+                type: "GET",
+                url: "https://tugasapi.informatikaunwaha.com/fikri/api2.php/cariharga/nomor_kamar/eq/" +
+              nokamar,
+                dataType: "json",
+                success: function (response) {
+                    
+                    harga = response.data[0].harga;
+                    console.log(harga);
+                }
+            });
           var email = $(this).data("email");
-          console.log(email);
+         
           $.ajax({
             type: "GET",
             url:
@@ -284,12 +300,12 @@
               email,
             dataType: "json",
             success: function (response) {
-              console.log(response);
-
+                console.log(response.data[0].email);
+              
               $("#namaTamu").val(
                 response.data[0].name
               );
-              $("#email_ci").val(
+              $("#emailCi").val(
                 response.data[0].email
               );
               $("#tglCi").val(
@@ -301,10 +317,37 @@
               $("#noKamar").val(
                 response.data[0].no_kamar
               );
+              tglCi = new Date($("#tglCi").val());
+              var tglCo = new Date($("#tglCo").val());
+              var jumlahHari = tglCo - tglCi
+              var jam = tglCo.getTime() - tglCi.getTime();
+              var jumlahHari = Math.ceil(jam / (1000 * 3600 * 24));
+    
+    $("#jmlHari").val(jumlahHari)
+    console.log(harga);
+    $("#harga").val(harga * jumlahHari);
             },
           });
         }
       );
+     
+      var tglCi;
+      
+  $("#tglCi").on("change", function () {
+    tglCi = new Date($("#tglCi").val());
+  });
+  $("#tglCo").on("change", function () {
+    var tglCo = new Date($("#tglCo").val());
+    var jumlahHari = tglCo - tglCi
+    var jam = tglCo.getTime() - tglCi.getTime();
+
+// Menghitung jumlah hari
+var jumlahHari = Math.ceil(jam / (1000 * 3600 * 24));
+    
+    $("#jmlHari").val(jumlahHari)
+    console.log(harga);
+    $("#harga").val(harga * jumlahHari);
+  });
       $("#formTambahtamu").submit(function (e) {
         e.preventDefault();
         var email = $("#email_ci").val();
